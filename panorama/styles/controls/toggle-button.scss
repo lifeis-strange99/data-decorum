@@ -1,0 +1,171 @@
+@use '../config' as *;
+@use '../abstract/function';
+@use '../abstract/mixin';
+@use 'button';
+@use 'sass:color';
+@use 'sass:list';
+
+.togglebutton {
+	.TickBox {
+		visibility: collapse;
+	}
+
+	&:hover:not(:selected) {
+		background-color: $button-background-hover;
+	}
+
+	&:selected {
+		background-color: $button-background-selected;
+		border-color: $primary-color;
+
+		& .button__text {
+			color: $button-text-selected;
+		}
+
+		& .button__icon {
+			wash-color: $button-text-selected;
+		}
+	}
+}
+
+.x-box.checkbox {
+	&:selected .TickBox {
+		border: $checkbox-border-selected;
+		box-shadow: $checkbox-shadow;
+
+		background-color: $checkbox-background-selected;
+		background-image: url('file://{images}/close.svg');
+		background-size: 60% 60%;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+}
+
+.checkbox {
+	flow-children: right;
+	height: $checkbox-width;
+
+	// This gets inserted in code
+	.TickBox {
+		height: 100%;
+		width: height-percentage(100%);
+		vertical-align: middle;
+		background-color: $checkbox-background;
+		border: $checkbox-border;
+		border-radius: $checkbox-radius;
+		z-index: 1;
+		margin-left: 0;
+		margin-right: $checkbox-gap;
+		box-shadow: $checkbox-shadow;
+	}
+
+	$this: &;
+	&--right {
+		flow-children: left;
+
+		& .TickBox {
+			margin-right: 0;
+			margin-left: $checkbox-gap;
+		}
+	}
+
+	.InputKeyboard &:hover .TickBox,
+	.InputController &:focus .TickBox {
+		background-color: $checkbox-background-hover;
+		border: $checkbox-border-hover;
+	}
+
+	&:disabled .TickBox,
+	.InputKeyboard &:disabled:hover .TickBox,
+	.InputController &:disabled:focus .TickBox {
+		background-color: $checkbox-background-disabled;
+		border: $button-border-disabled;
+	}
+
+	&:selected .TickBox {
+		border: $checkbox-border-selected;
+		box-shadow: $checkbox-shadow;
+
+		background-color: $checkbox-background-selected;
+		background-image: url('file://{images}/checkmark.svg');
+		background-size: 60% 60%;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	.InputKeyboard &:selected:hover .TickBox,
+	.InputController &:selected:focus .TickBox {
+		background-color: $checkbox-background-selected-hover;
+	}
+
+	&:disabled:selected .TickBox {
+		background-color: $checkbox-background-disabled-selected;
+		opacity: 0.5;
+	}
+
+	& Label {
+		@include mixin.font-styles($use-header: $checkbox-use-header-font);
+		vertical-align: middle;
+	}
+}
+
+@each $name, $value in $gradients-primary {
+	.togglebutton--#{$name} {
+		@if color.channel(color.to-space(list.nth($value, 1), hsl), 'lightness') > 50% {
+			& Label {
+				color: $base-950;
+			}
+			& Image {
+				wash-color: $base-950;
+			}
+
+			.InputKeyboard &:hover:not(:disabled):not(:parentdisabled):not(:selected),
+			.InputController &:focus:not(:disabled):not(:parentdisabled) {
+				& Label {
+					color: $bright-color;
+				}
+				& Image {
+					wash-color: $bright-color;
+				}
+			}
+
+			.InputKeyboard &:selected,
+			.InputController &:selected {
+				& Label {
+					color: $base-950;
+				}
+				& Image {
+					wash-color: $base-950;
+				}
+			}
+		}
+
+		background-color: gradient(
+			radial,
+			50% 50%,
+			0% 0%,
+			70% 70%,
+			from(list.nth($value, 1)),
+			to(color.scale(list.nth($value, 1), $lightness: -50%))
+		);
+		border-color: color.scale(list.nth($value, 1), $lightness: -80%);
+
+		.InputKeyboard &:hover:not(:disabled):not(:parentdisabled),
+		.InputController &:focus:not(:disabled):not(:parentdisabled) {
+			border-color: list.nth($value, 1);
+			background-color: gradient(
+				radial,
+				50% 50%,
+				0% 0%,
+				70% 70%,
+				from(color.scale(list.nth($value, 1), $lightness: -20%)),
+				to(color.scale(list.nth($value, 1), $lightness: -80%))
+			);
+		}
+
+		&:selected {
+			background-color: list.nth($value, 2);
+			border-color: list.nth($value, 2);
+		}
+	}
+}

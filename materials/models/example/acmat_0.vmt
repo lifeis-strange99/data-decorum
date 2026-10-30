@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/example/acmat_0"
+    "$surfaceprop" "metal"
+}

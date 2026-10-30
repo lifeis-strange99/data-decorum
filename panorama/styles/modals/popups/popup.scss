@@ -1,0 +1,145 @@
+@use '../../config' as *;
+@use '../../abstract/mixin';
+@use '../../controls/button';
+
+.PopupPanel {
+	flow-children: down;
+	vertical-align: middle;
+	horizontal-align: center;
+	padding: $popup-padding;
+	border: $popup-border;
+	border-radius: $popup-radius;
+	background-color: $popup-background;
+	background-image: url('file://{images}/menu/menu_grid4.png');
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-img-opacity: 0.1;
+	opacity: 1;
+	transition-property: pre-transform-scale2d;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+
+	&.Hidden {
+		opacity: 0;
+		pre-transform-scale2d: 1.15;
+		// sound: "ui_custom_lobby_dialog_slide";
+	}
+}
+
+.bad-popup {
+	border-color: $red;
+	background-color: #2b1212;
+	sound: 'UIPanorama.P2CE.MenuError';
+}
+
+.generic-popup {
+	min-width: $popup-min-width;
+	max-width: $popup-max-width;
+
+	&--large {
+		max-width: $popup-large-max-width;
+	}
+
+	&__title {
+		horizontal-align: left;
+		margin-bottom: 0px;
+		@include mixin.font-styles($use-header: $popup-title-use-header-font, $light-header: false);
+		color: $font-default-color;
+		font-size: $popup-title-font-size;
+	}
+
+	&__close-button {
+		margin-top: 4px;
+	}
+
+	&__message-panel {
+		flow-children: right;
+		margin: 10px 0;
+	}
+
+	&__message-label {
+		horizontal-align: left;
+		text-align: left;
+		margin-left: 4px;
+		@include mixin.font-styles($use-header: $popup-text-use-header-font);
+		vertical-align: center;
+		font-size: $popup-text-font-size;
+	}
+
+	&__button-row {
+		flow-children: right;
+		horizontal-align: right;
+		margin-top: 4px;
+	}
+}
+
+.PopupButton {
+	// Popup buttons get inserted by C++ with the "PopupButton" class, so we have to do this...
+	@extend .button;
+	margin-left: 8px;
+
+	& Label {
+		@extend .button__text;
+		font-size: $popup-button-font-size;
+	}
+}
+
+.warning-popup {
+	#Button0 {
+		@extend .button--red;
+	}
+}
+
+.warning-2-popup {
+	#Button0 {
+		@extend .button--red;
+	}
+	#Button1 {
+		@extend .button--red;
+	}
+}
+
+.quit-popup {
+	#Button0 {
+		@extend .button--orange;
+	}
+	#Button1 {
+		@extend .button--red;
+	}
+}
+
+.ok-cancel-popup {
+	#Button0 {
+		@extend .button--blue;
+	}
+	#Button1 {
+		@extend .button--red;
+	}
+}
+
+.wide-popup {
+	max-width: $popup-wide;
+}
+
+#DimBackground {
+	width: 100%;
+	height: 100%;
+	background-color: rgba($black, 0.9);
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in;
+}
+
+#BlurBackground {
+	width: 100%;
+	height: 100%;
+	background-color: rgba($black, 0.9);
+	transition-property: background-color, opacity;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+}
+
+#DimBackground.Hidden,
+#BlurBackground.Hidden {
+	opacity: 0;
+}

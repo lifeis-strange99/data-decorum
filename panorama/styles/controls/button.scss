@@ -1,0 +1,298 @@
+@use '../config' as *;
+@use '../abstract/function';
+@use '../abstract/mixin';
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+
+.button {
+	height: $button-height;
+	background-color: $button-background;
+	box-shadow: $button-shadow;
+	border-radius: $button-radius;
+	border: $button-border;
+	color: $button-text-color;
+	flow-children: right;
+	tooltip-position: bottom;
+
+	$this: &;
+
+	.InputKeyboard &:hover:not(:disabled):not(:parentdisabled),
+	.InputController &:focus:not(:disabled):not(:parentdisabled) {
+		background-color: $button-background-hover;
+		border: $button-border-hover;
+		sound: 'UIPanorama.P2CE.MenuSelect';
+
+		#{$this}__text {
+			color: $button-text-hover;
+		}
+
+		#{$this}__icon {
+			wash-color: $button-text-hover;
+		}
+	}
+
+	&:selected,
+	.InputKeyboard &:hover:selected:not(:disabled):not(:parentdisabled) {
+		border-color: $primary-color;
+		background-color: $primary-color;
+		sound-out: 'UIPanorama.P2CE.MenuAccept';
+
+		#{$this}__icon,
+		#{$this}__icon-right {
+			wash-color: $base-950;
+		}
+
+		#{$this}__text-panel__header,
+		#{$this}__text-panel__subheader {
+			color: $base-950;
+		}
+	}
+
+	&:disabled,
+	&:parentdisabled {
+		background-color: $button-background-disabled;
+		border: $button-border-disabled;
+	}
+
+	&:disabled &:hover,
+	&:parentdisabled &:hover {
+		sound: 'UIPanorama.P2CE.MenuError';
+	}
+
+	&:disabled &__text,
+	&:parentdisabled &__text {
+		color: $button-text-disabled;
+	}
+
+	&:disabled &__icon {
+		wash-color: $button-text-disabled;
+	}
+
+	&__text {
+		@include mixin.font-styles($use-header: $button-use-header-font, $light-header: $button-light-header-font);
+		font-size: $button-font-size;
+		color: $button-text-color;
+		margin: 0 $button-text-side-margin;
+		text-shadow: $button-text-shadow;
+		vertical-align: middle;
+		horizontal-align: center;
+		text-align: center;
+		overflow: squish;
+		text-overflow: shrink;
+
+		&--left {
+			margin-left: $button-text-side-margin;
+			margin-right: $button-icon-text-gap;
+		}
+
+		&--right {
+			margin-left: $button-icon-text-gap;
+			margin-right: $button-text-side-margin;
+		}
+	}
+
+	&__icon {
+		height: 100%;
+
+		width: height-percentage(100%);
+		padding: $button-icon-padding;
+		vertical-align: center;
+		horizontal-align: center;
+		img-shadow: $button-icon-shadow;
+		wash-color: $button-text-color;
+
+		&--left {
+			margin-left: $button-icon-with-text-side-margin;
+			margin-right: $button-icon-text-gap;
+			padding: $button-icon-side-padding;
+		}
+
+		&--right {
+			margin-left: $button-icon-text-gap;
+			margin-right: $button-icon-with-text-side-margin;
+			padding: $button-icon-side-padding;
+		}
+	}
+}
+
+@each $name, $value in $gradients-primary {
+	.button--#{$name} {
+		background-color: gradient(
+			radial,
+			50% 50%,
+			0% 0%,
+			70% 70%,
+			from(list.nth($value, 1)),
+			to(color.scale(list.nth($value, 1), $lightness: -50%))
+		);
+		border-color: color.scale(list.nth($value, 1), $lightness: -80%);
+		@if color.channel(color.to-space(list.nth($value, 1), hsl), 'lightness') > 50% {
+			& Label {
+				color: $base-950;
+			}
+			& Image {
+				wash-color: $base-950;
+			}
+
+			.InputKeyboard &:hover:not(:disabled):not(:parentdisabled),
+			.InputController &:focus:not(:disabled):not(:parentdisabled) {
+				& Label {
+					color: $bright-color;
+				}
+				& Image {
+					wash-color: $bright-color;
+				}
+			}
+		}
+
+		.InputKeyboard &:hover:not(:disabled):not(:parentdisabled),
+		.InputController &:focus:not(:disabled):not(:parentdisabled) {
+			border-color: list.nth($value, 1);
+			background-color: gradient(
+				radial,
+				50% 50%,
+				0% 0%,
+				70% 70%,
+				from(color.scale(list.nth($value, 1), $lightness: -20%)),
+				to(color.scale(list.nth($value, 1), $lightness: -80%))
+			);
+			sound: 'UIPanorama.P2CE.MenuFocus';
+		}
+	}
+}
+
+// this is misleading :)
+.button-2x {
+	height: calc($button-height * 1.35);
+}
+
+RadioButton.button-mono {
+	& .RadioBox {
+		visibility: collapse;
+	}
+}
+
+.button-mono {
+	// @extend is causing a parsing error for god knows why
+	height: $button-height;
+	box-shadow: $button-shadow;
+	border-radius: $button-radius;
+	color: $button-text-color;
+	tooltip-position: bottom;
+
+	$this: &;
+
+	flow-children: right;
+
+	padding: 0 15px;
+	background-color: $button-background;
+	border: $menu-pane-border;
+
+	$this: &;
+
+	&__icon {
+		width: 24px;
+		height: 24px;
+		margin-right: 8px;
+		vertical-align: middle;
+	}
+
+	&__icon-right {
+		@extend .button-mono__icon;
+
+		margin-left: 8px;
+		margin-right: 0px;
+	}
+
+	&__text {
+		font-weight: bold;
+		font-size: 16px;
+		vertical-align: center;
+	}
+
+	&__text-panel {
+		vertical-align: center;
+		flow-children: down;
+
+		&__header {
+			font-weight: bold;
+		}
+
+		&__subheader {
+			color: $base-300;
+			font-size: 15px;
+			max-height: 23px;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.InputKeyboard &:hover:not(:disabled):not(:parentdisabled):not(:selected),
+	.InputController &:focus:not(:disabled):not(:parentdisabled) {
+		border-color: $primary-color;
+		background-color: $button-background-hover;
+		sound: 'UIPanorama.P2CE.MenuSelect';
+		#{$this}__icon,
+		#{$this}__icon-right {
+			wash-color: $bright-color;
+		}
+
+		#{$this}__text-panel__header,
+		#{$this}__text-panel__subheader {
+			color: $bright-color;
+		}
+	}
+
+	&:selected,
+	.InputKeyboard &:hover:selected:not(:disabled):not(:parentdisabled) {
+		border-color: $primary-color;
+		background-color: $primary-color;
+		sound-out: 'UIPanorama.P2CE.MenuAccept';
+
+		#{$this}__icon,
+		#{$this}__icon-right {
+			wash-color: $base-950;
+		}
+
+		#{$this}__text-panel__header,
+		#{$this}__text-panel__subheader {
+			color: $base-950;
+		}
+	}
+
+	&:disabled,
+	&:parentdisabled {
+		background-color: $button-background-disabled;
+		border-color: $base-800;
+	}
+
+	&:disabled &:hover,
+	&:parentdisabled &:hover {
+		sound: 'UIPanorama.P2CE.MenuError';
+	}
+
+	&:disabled &__text,
+	&:parentdisabled &__text {
+		color: $base-500;
+	}
+
+	&:disabled &__icon,
+	&:parentdisabled &__icon {
+		wash-color: $base-500;
+	}
+
+	&__bigger {
+		height: fit-children;
+		padding: 15px;
+
+		#{$this}__icon {
+			width: 32px;
+			height: 32px;
+		}
+
+		#{$this}__text {
+			@include mixin.font-styles($use-header: true);
+			font-size: 22px;
+		}
+	}
+}

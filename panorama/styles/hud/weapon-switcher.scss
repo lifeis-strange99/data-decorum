@@ -1,0 +1,132 @@
+@use '../config' as *;
+
+.weapons {
+	margin-top: 50px;
+	horizontal-align: center;
+	flow-children: right;
+
+	&__bucket {
+		margin: 0 9px;
+		flow-children: down;
+
+		&__entry {
+			width: 72px;
+			height: 72px;
+			background-color: $hl2-bg;
+			margin-bottom: 18px;
+			padding: 15px;
+			border-radius: 10px;
+
+			$this: &;
+
+			&__sub {
+				visibility: collapse;
+
+				#{$this}__expanded {
+					visibility: visible;
+				}
+			}
+
+			&__empty {
+				background-color: rgba($hl2-bg, 0.2);
+			}
+
+			&__expanded {
+				width: 252px;
+				height: 189px;
+				visibility: visible;
+
+				#{$this}__icon-label,
+				#{$this}__icon {
+					visibility: visible;
+				}
+			}
+
+			&__selected {
+				&.weapons__bucket__entry__red {
+					#{$this}__num,
+					#{$this}__name,
+					#{$this}__icon-label {
+						text-shadow: 0px 0px 8px 1 $hl2-red;
+					}
+					#{$this}__icon {
+						img-shadow: 0px 0px 8px 1 $hl2-red;
+					}
+				}
+
+				#{$this}__num,
+				#{$this}__name,
+				#{$this}__icon-label {
+					visibility: visible;
+					text-shadow: 0px 0px 8px 1 rgba($hl2-bright-yellow, 0.4);
+					overflow: noclip;
+					color: $hl2-bright-yellow;
+				}
+				#{$this}__icon {
+					visibility: visible;
+					img-shadow: 0px 0px 8px 1 rgba($hl2-bright-yellow, 0.4);
+					wash-color: $hl2-bright-yellow;
+					opacity: 1;
+				}
+			}
+
+			&__red {
+				#{$this}__name,
+				#{$this}__icon-label,
+				#{$this}__num {
+					color: $hl2-red;
+				}
+				#{$this}__icon {
+					wash-color: $hl2-red;
+				}
+			}
+
+			&__icon {
+				width: 100%;
+				height: 100%;
+				align: center center;
+				visibility: collapse;
+				wash-color: $hl2-full-yellow;
+				opacity: 0.4;
+				padding: 25px;
+				img-shadow: 0px 0px 8px 1 rgba($hl2-bright-yellow, 0.4);
+			}
+
+			&__name {
+				width: 100%;
+				text-align: center;
+				visibility: collapse;
+				horizontal-align: center;
+				vertical-align: bottom;
+				max-width: 100%;
+				font-family: $font-halflife2-hud;
+				font-size: 14px;
+				text-transform: uppercase;
+				color: rgba($hl2-yellow, 0.4);
+			}
+
+			&__num {
+				font-family: $font-halflife2-hud;
+				font-size: 18px;
+				font-weight: bold;
+				text-transform: uppercase;
+				color: $hl2-yellow;
+			}
+
+			&__icon-label {
+				width: 100%;
+				text-align: center;
+				visibility: collapse;
+				font-size: 118px;
+				font-family: 'HalfLife2';
+				horizontal-align: center;
+				vertical-align: center;
+				color: rgba($hl2-yellow, 0.4);
+				&__unknown {
+					font-family: $font-halflife2-hud;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}

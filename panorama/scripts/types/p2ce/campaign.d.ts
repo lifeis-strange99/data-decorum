@@ -1,0 +1,66 @@
+/**
+ * @packageDocumentation
+ * P2:CE Campaign API.
+ */
+
+interface ChapterMap {
+    name: string;
+
+    meta: Map<string, string>;
+}
+
+interface ChapterInfo {
+    id: string; 
+    title: string;
+    maps: ChapterMap[];
+
+    meta: Map<string, string>;
+}
+
+interface CampaignInfo {
+    id: string; 
+    title: string; 
+    chapters: ChapterInfo[];
+
+    meta: Map<string, string>;
+}
+
+// Holds multiple campaigns
+interface CampaignBucket {
+	id: string;
+    addon_id: number; // Workshop Addon ID or -1 if not present
+	campaigns: CampaignInfo[];
+
+	meta: Map<string, string>;
+}
+
+interface CampaignPair
+{
+	bucket: CampaignBucket;
+	campaign: CampaignInfo;
+}
+
+/** [API not finalized] The Campaign API. Exclusive to P2:CE! */
+declare namespace CampaignAPI {
+    function ReloadCampaigns();
+
+    function GetAllCampaignBuckets(): CampaignBucket[];
+    function GetActiveCampaign(): CampaignPair|null;
+    function IsCampaignActive(): boolean;
+    function FindCampaign(campaign: string): CampaignPair|null;
+
+    function GetCampaignMeta(name: string|null): Map<string, string>|null;
+
+    function SetActiveCampaign(name: string|null): boolean;
+    function StartCampaign(campaign: string, chapter: string, map: number): boolean;
+    function ContinueCampaign(campaign: string): boolean;
+
+    function GetCampaignUnlockProgress(campaign: string): number;
+    
+    function CampaignHasSaveData(campaign: string|null): boolean;
+}
+
+interface GlobalEventNameMap {
+    PanoramaComponent_Campaign_OnActiveCampaignChanged: (campaign: string|null) => void;
+    PanoramaComponent_Campaign_OnRefreshList: () => void;
+}

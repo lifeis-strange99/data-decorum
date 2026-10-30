@@ -1,0 +1,246 @@
+@use '../../config' as *;
+@use '../../abstract/function';
+@use '../../abstract/mixin';
+
+.content {
+	&__left {
+		width: 960px;
+		height: 100%;
+		flow-children: down;
+	}
+
+	&__action-bar {
+		width: 100%;
+		flow-children: right;
+	}
+}
+
+.addons {
+	width: 100%;
+	height: 100%;
+	flow-children: down;
+
+	border: $menu-pane-border;
+
+	&__action-bar {
+		width: 100%;
+		height: fit-children;
+		flow-children: right;
+
+		border-bottom: $menu-pane-border;
+		background-color: $base-950;
+		padding: 15px;
+	}
+
+	&__list {
+		width: 100%;
+		height: 100%;
+		overflow: squish scroll;
+		flow-children: down;
+
+		background-color: $base-950;
+	}
+
+	&__entry {
+		width: 100%;
+		height: fit-children;
+		flow-children: right;
+
+		padding: 15px;
+		padding-right: 20px;
+
+		&:hover,
+		&:focus {
+			background-color: $primary-950;
+			sound: 'UIPanorama.P2CE.MenuSelect';
+		}
+
+		&:selected {
+			background-color: $primary-800;
+			sound: 'UIPanorama.P2CE.MenuFocus';
+		}
+
+		&__left {
+			width: fill-parent-flow(1);
+			flow-children: right;
+		}
+
+		&__cover {
+			width: 128px;
+			height: 128px;
+
+			border: $menu-pane-border;
+		}
+
+		&__details {
+			flow-children: down;
+
+			margin-left: 15px;
+			vertical-align: middle;
+
+			&__title {
+				@include mixin.font-styles($use-header: true);
+				font-size: 22px;
+				text-overflow: shrink;
+			}
+
+			&__desc {
+				margin-top: 5px;
+				font-size: 16px;
+				color: $base-200;
+				text-overflow: ellipsis;
+				max-height: 60px;
+			}
+
+			&__source {
+				font-size: 14px;
+				color: $base-400;
+				font-weight: light;
+				letter-spacing: 1px;
+				text-overflow: shrink;
+			}
+		}
+
+		&__right {
+		}
+
+		&__checkbox {
+			height: 48px;
+
+			margin-left: 10px;
+			& > .TickBox {
+				margin-right: 0px;
+			}
+		}
+	}
+}
+
+.selected-addon {
+	width: fill-parent-flow(1);
+	height: 100%;
+	flow-children: down;
+
+	margin-left: 20px;
+	padding: 15px;
+	border: $menu-pane-border;
+	background-color: $base-950;
+
+	&__cover {
+		min-width: 193px;
+		height: 192px;
+
+		border: $menu-pane-border;
+		margin-right: 15px;
+	}
+
+	&__title {
+		@include mixin.font-styles($use-header: true);
+		font-size: 28px;
+	}
+
+	&__authors {
+		font-weight: light;
+		font-size: 16px;
+		color: $base-200;
+		letter-spacing: 1px;
+	}
+
+	&__description {
+		width: 100%;
+		height: 100%;
+
+		margin-top: 15px;
+		border: $menu-pane-border;
+
+		&__text {
+			overflow: squish scroll;
+			padding: 15px;
+		}
+	}
+}
+
+.mounts {
+	width: 100%;
+	height: 100%;
+	flow-children: down;
+
+	border: $menu-pane-border;
+
+	&__disclaimer {
+		width: 100%;
+		padding: 10px;
+		background-color: rgb(255, 53, 53);
+		border-bottom: $menu-pane-border;
+
+		$this: &;
+
+		&__icon {
+			vertical-align: center;
+			wash-color: $base-950;
+			margin-right: 8px;
+		}
+
+		&__text {
+			font-weight: bold;
+			color: $base-950;
+		}
+
+		&__small-text {
+			color: $base-950;
+			font-size: 16px;
+		}
+
+		&:hover,
+		&:focus {
+			background-color: rgb(190, 39, 39);
+
+			#{$this}__text,
+			#{$this}__small-text {
+				color: $bright-color;
+			}
+
+			#{$this}__icon {
+				wash-color: $bright-color;
+			}
+		}
+	}
+
+	&__list {
+		width: 100%;
+		height: fill-parent-flow(1);
+		overflow: squish scroll;
+		flow-children: down;
+
+		background-color: $base-950;
+	}
+
+	&__entry {
+		width: 100%;
+		flow-children: right;
+
+		padding: 15px;
+		border-bottom: $menu-pane-border;
+
+		&__cover {
+			width: 230px;
+			height: 108px;
+
+			border: $menu-pane-border;
+			margin-right: 23px;
+		}
+
+		&__details {
+			flow-children: down;
+			vertical-align: center;
+
+			&__title {
+				@include mixin.font-styles($use-header: true);
+				font-size: 32px;
+			}
+
+			&__appid {
+				color: $base-200;
+			}
+		}
+	}
+}

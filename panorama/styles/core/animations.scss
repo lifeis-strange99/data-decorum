@@ -1,0 +1,367 @@
+@use '../config' as *;
+
+.spin-clockwise {
+	animation-name: SpinClockwise;
+	animation-duration: 0.8s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes SpinClockwise {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	25% {
+		transform: rotateZ(90deg);
+	}
+	50% {
+		transform: rotateZ(180deg);
+	}
+	75% {
+		transform: rotateZ(270deg);
+	}
+}
+
+.blur-fade-in {
+	animation-name: BlurFadeIn;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+
+	-s2-mix-blend-mode: opaque;
+
+	blur: fastgaussian(4, 4, 4);
+}
+
+@keyframes BlurFadeIn {
+	0% {
+		blur: fastanimgaussian(0, 0, 0);
+	}
+	100% {
+		blur: fastgaussian(4, 4, 4);
+	}
+}
+
+@keyframes PulseBackgroundOrange {
+	0% {
+		background-color: rgba($primary-color, 0.3);
+	}
+
+	50% {
+		background-color: rgba($primary-color, 0.8);
+	}
+
+	100% {
+		background-color: rgba($primary-color, 0.3);
+	}
+}
+
+@keyframes BlurFadeInOut {
+	0% {
+		blur: gaussian(0, 0, 0);
+		opacity: 1;
+	}
+
+	50% {
+		blur: gaussian(2, 10, 2);
+		opacity: 0;
+	}
+
+	100% {
+		blur: gaussian(0, 0, 0);
+		opacity: 1;
+	}
+}
+
+@keyframes FadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes FadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes AnimOutLeft {
+	0% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(-300px);
+		opacity: 0;
+	}
+}
+
+@keyframes AnimOutRight {
+	0% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(300px);
+		opacity: 0;
+	}
+}
+
+@keyframes AnimInLeft {
+	0% {
+		transform: translateX(-300px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes AnimInRight {
+	0% {
+		transform: translateX(300px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes OpacityFlicker {
+	0% {
+		opacity: 1;
+	}
+	3% {
+		opacity: 0.95;
+	}
+	5% {
+		opacity: 1;
+	}
+	8% {
+		opacity: 0.93;
+	}
+	10% {
+		opacity: 0.97;
+	}
+	11% {
+		opacity: 1;
+	}
+	14% {
+		opacity: 0.92;
+	}
+	15% {
+		opacity: 0.95;
+	}
+	17% {
+		opacity: 0.95;
+	}
+	18% {
+		opacity: 1;
+	}
+	21% {
+		opacity: 0.92;
+	}
+	24% {
+		opacity: 0.95;
+	}
+	26% {
+		opacity: 0.93;
+	}
+	29% {
+		opacity: 0.88;
+	}
+	30% {
+		opacity: 1;
+	}
+	33% {
+		opacity: 0.99;
+	}
+	35% {
+		opacity: 0.94;
+	}
+	36% {
+		opacity: 1;
+	}
+	38% {
+		opacity: 0.9;
+	}
+	39% {
+		opacity: 0.95;
+	}
+	41% {
+		opacity: 0.9;
+	}
+	44% {
+		opacity: 1;
+	}
+	46% {
+		opacity: 0.93;
+	}
+	48% {
+		opacity: 0.9;
+	}
+	50% {
+		opacity: 1;
+	}
+	53% {
+		opacity: 1;
+	}
+	55% {
+		opacity: 1;
+	}
+	58% {
+		opacity: 0.9;
+	}
+	59% {
+		opacity: 0.91;
+	}
+	61% {
+		opacity: 0.97;
+	}
+	65% {
+		opacity: 1;
+	}
+	68% {
+		opacity: 1;
+	}
+	73% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 0.96;
+	}
+	82% {
+		opacity: 0.95;
+	}
+	85% {
+		opacity: 0.89;
+	}
+	88% {
+		opacity: 0.99;
+	}
+	90% {
+		opacity: 1;
+	}
+	92% {
+		opacity: 0.96;
+	}
+	95% {
+		opacity: 0.9;
+	}
+	96% {
+		opacity: 0.9;
+	}
+	98% {
+		opacity: 0.92;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+// MAIN MENU ANIM KEYFRAMES
+
+@keyframes MainMenuFlash {
+	0% {
+		blur: gaussian(10, 10, 2);
+		opacity: 0.5;
+	}
+
+	100% {
+		blur: gaussian(0, 0, 0);
+		opacity: 1;
+	}
+}
+
+@keyframes MainMenuSwitch {
+	0% {
+		blur: fastanimgaussian(0, 0, 0);
+	}
+
+	100% {
+		blur: fastanimgaussian(10, 10, 5);
+	}
+}
+
+@keyframes MainMenuSwitchReverse {
+	0% {
+		blur: fastanimgaussian(10, 10, 5);
+	}
+
+	100% {
+		blur: fastanimgaussian(0, 0, 0);
+	}
+}
+
+.anim-main-menu-blur {
+	blur: fastgaussian(10, 10, 5);
+}
+
+.anim-main-menu-switch {
+	animation-name: MainMenuSwitch;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+
+	blur: fastgaussian(10, 10, 5);
+}
+
+.anim-main-menu-switch-reverse {
+	animation-name: MainMenuSwitchReverse;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+
+	blur: fastgaussian(0, 0, 0);
+}
+
+@keyframes MenuPageBlur {
+	0% {
+		blur: fastanimgaussian(0, 0, 0);
+	}
+
+	100% {
+		blur: fastanimgaussian(3, 3, 4);
+	}
+}
+
+@keyframes MenuPageBlurReverse {
+	0% {
+		blur: fastanimgaussian(3, 3, 4);
+	}
+
+	100% {
+		blur: fastanimgaussian(0, 0, 0);
+	}
+}
+
+.anim-menu-page-blur {
+	animation-name: MenuPageBlur;
+	animation-duration: 0.1s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+
+	blur: fastgaussian(3, 3, 4);
+}
+
+.anim-menu-page-blur-reverse {
+	animation-name: MenuPageBlurReverse;
+	animation-duration: 0.1s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+
+	blur: fastgaussian(0, 0, 0);
+}

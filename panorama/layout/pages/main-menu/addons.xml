@@ -1,0 +1,220 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/main.scss" />
+	</styles>
+	<scripts>
+		<include src="file://{scripts}/common/dev.ts" />
+		<include src="file://{scripts}/common/searcher.ts" />
+		<include src="file://{scripts}/pages/main-menu/addons.ts" />
+	</scripts>
+
+	<snippets>
+		<snippet name="AddonEntrySnippet">
+			<RadioButton class="addons__entry" group="AddonRadio" tabindex="auto" selectionpos="auto">
+				<Panel class="addons__entry__left">
+					<!-- Addon icon cover -->
+					<Image id="AddonCover" class="addons__entry__cover" scaling="stretch-to-cover-preserve-aspect" />
+
+					<!-- Addon info; title, description, 'source' -->
+					<Panel class="addons__entry__details">
+						<Label id="AddonTitle" class="addons__entry__details__title" />
+						<Label id="AddonSource" class="addons__entry__details__source" />
+						<Label id="AddonDesc" class="addons__entry__details__desc" />
+					</Panel>
+				</Panel>
+				<Panel class="addons__entry__right">
+					<TooltipPanel tooltip="#MainMenu_Addons_ToggleAddon">
+						<ToggleButton id="AddonEnable" class="checkbox addons__entry__checkbox" />
+					</TooltipPanel>
+				</Panel>
+			</RadioButton>
+		</snippet>
+		<snippet name="MountEntrySnippet">
+			<Panel class="mounts__entry">
+				<Image id="MountCover" class="mounts__entry__cover" scaling="stretch" />
+				<Panel class="mounts__entry__details">
+					<Label id="MountTitle" class="mounts__entry__details__title" text="[PH] Mount Title" />
+					<Label id="MountAppId" class="mounts__entry__details__appid" text="[PH] Mount AppID" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="mainmenu__page flow-right">
+		<Panel class="content__left">
+			<Panel class="full-width flow-right mb-2" tabindex="auto" selectionpos="auto">
+				<RadioButton
+					id="ViewAddonsBtn"
+					class="button-mono button-mono__bigger fill-width mr-1"
+					group="ContentViewType"
+					onactivate="AddonManager.showPage()"
+					tabindex="auto"
+					selectionpos="auto"
+				>
+					<Image
+						class="button-mono__icon"
+						src="file://{images}/menu/p2ce/logo_plain.svg"
+						scaling="stretch-to-fit-preserve-aspect"
+						texturewidth="91"
+						textureheight="130"
+					/>
+					<Panel class="button-mono__text-panel">
+						<Label class="button-mono__text-panel__header" text="#MainMenu_Addons_Category_WS" />
+						<Label class="button-mono__text-panel__subheader" text="#MainMenu_Addons_Category_WS_Tagline" />
+					</Panel>
+				</RadioButton>
+				<RadioButton
+					id="ViewMountsBtn"
+					class="button-mono button-mono__bigger fill-width ml-1"
+					group="ContentViewType"
+					onactivate="MountManager.showPage()"
+					tabindex="auto"
+					selectionpos="auto"
+				>
+					<Image
+						class="button-mono__icon"
+						src="file://{images}/download.svg"
+						scaling="stretch-to-fit-preserve-aspect"
+						texturewidth="32"
+						textureheight="32"
+					/>
+					<Panel class="button-mono__text-panel">
+						<Label class="button-mono__text-panel__header" text="#MainMenu_Addons_Category_Mounts" />
+						<Label class="button-mono__text-panel__subheader" text="#MainMenu_Addons_Category_Mounts_Tagline" />
+					</Panel>
+				</RadioButton>
+			</Panel>
+			<Panel id="AddonsPage" class="addons" onload="AddonManager.init()" tabindex="auto" selectionpos="auto">
+				<Panel class="addons__action-bar">
+					<TooltipPanel tooltip="#MainMenu_Addons_SteamWorkshop_Tooltip">
+						<Button
+							class="button mr-2"
+							onactivate="SteamOverlayAPI.OpenURL('https://steamcommunity.com/app/440000/workshop/')"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Image class="button__icon" texturewidth="32" textureheight="32" src="file://{images}/icons/steam.svg" />
+						</Button>
+					</TooltipPanel>
+					<TooltipPanel tooltip="#MainMenu_Addons_Advanced_Tooltip">
+						<ToggleButton
+							id="AdvancedCheck"
+							class="button togglebutton mr-2"
+							onactivate="AddonManager.toggleAdvanced()"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Image class="button__icon" texturewidth="32" textureheight="32" src="file://{images}/spectatingIcon.svg" />
+						</ToggleButton>
+					</TooltipPanel>
+					<TooltipPanel class="hide" tooltip="#MainMenu_Addons_Filtering_Edit_Tooltip">
+						<Button
+							id="ViewFilters"
+							class="button mr-2"
+							onactivate="AddonManager.changeFilters()"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Image class="button__icon" texturewidth="32" textureheight="32" src="file://{images}/filter-menu.svg" />
+						</Button>
+					</TooltipPanel>
+					<TooltipPanel tooltip="#MainMenu_Addons_Filtering_EnableAddons_Tooltip">
+						<ToggleButton
+							id="ToggleAll"
+							class="button togglebutton mr-2"
+							onactivate="AddonManager.toggleAll()"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Image class="button__icon" texturewidth="32" textureheight="32" src="file://{images}/checkmark.svg" />
+						</ToggleButton>
+					</TooltipPanel>
+					<TextEntry
+						id="SearchAddonsEntry"
+						class="textentry fill-width mr-2"
+						placeholder="#MainMenu_Addons_SearchBox_FillerText"
+					/>
+					<Panel class="horizontal-align-right flow-right" tabindex="auto" selectionpos="auto">
+						<Button
+							onactivate="AddonManager.apply()"
+							id="ApplyButton"
+							class="button mr-2"
+							disabled="true"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Label class="button__text" text="#MainMenu_Addons_Apply" />
+						</Button>
+						<Button
+							onactivate="AddonManager.cancel()"
+							id="CancelButton"
+							class="button"
+							disabled="true"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Label class="button__text" text="#MainMenu_Addons_Discard" />
+						</Button>
+					</Panel>
+				</Panel>
+
+				<!-- Addon list -->
+				<Panel id="AddonContainer" class="addons__list" tabindex="auto" selectionpos="auto" />
+			</Panel>
+			<Panel id="MountsPage" class="mounts" onload="MountManager.init()">
+				<Panel class="mounts__disclaimer" tabindex="auto" selectionpos="auto">
+					<Panel class="horizontal-align-center vertical-align-center flow-right" tabindex="auto" selectionpos="auto">
+						<Image
+							class="mounts__disclaimer__icon"
+							src="file://{images}/info.svg"
+							scaling="stretch-to-fit-preserve-aspect"
+							texturewidth="32"
+							textureheight="32"
+						/>
+						<Button
+							class="vertical-align-center flow-down"
+							onactivate="SteamOverlayAPI.OpenURL('https://wiki.stratasource.org/modding/overview/mounts')"
+							tabindex="auto"
+							selectionpos="auto"
+						>
+							<Label class="mounts__disclaimer__text" text="#MainMenu_Mounts_WIP_Title" />
+							<Label class="mounts__disclaimer__small-text" text="#MainMenu_Mounts_WIP_Tagline" />
+						</Button>
+					</Panel>
+				</Panel>
+				<Panel id="MountContainer" class="mounts__list" />
+			</Panel>
+		</Panel>
+
+		<Panel id="SelectedAddonPanel" class="selected-addon hide">
+			<Panel class="flow-right full-width">
+				<Image id="SelectedAddonCover" class="selected-addon__cover" scaling="stretch-to-cover-preserve-aspect" />
+				<Panel class="flow-down vertical-align-center">
+					<Label id="SelectedAddonTitle" class="selected-addon__title" text="[PH] Addon Name" />
+					<Label id="SelectedAddonAuthors" class="selected-addon__authors" text="[PH] Addon Authors" />
+					<Panel class="flow-down">
+						<Button id="SelectedAddonView" class="mt-1 button-mono" onactivate="AddonManager.viewSelectedOnSteam()">
+							<Image
+								class="button-mono__icon"
+								src="file://{images}/icons/steam.svg"
+								scaling="stretch-to-fit-preserve-aspect"
+								texturewidth="32"
+								textureheight="32"
+							/>
+							<Label class="button-mono__text" text="#MainMenu_Addons_ViewOnWS" />
+						</Button>
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel class="selected-addon__description">
+				<Label
+					id="SelectedAddonDesc"
+					class="selected-addon__description__text"
+					text="[PH] Addon Description"
+					html="true"
+					loadimages="true"
+				/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

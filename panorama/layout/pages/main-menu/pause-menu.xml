@@ -1,0 +1,48 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/main.scss" />
+	</styles>
+	<scripts>
+		<include src="file://{scripts}/common/dev.ts" />
+		<include src="file://{scripts}/pages/main-menu/pause-menu.ts" />
+	</scripts>
+
+	<snippets>
+		<snippet name="MenuBackgroundLayer">
+			<Panel class="full">
+				<!-- Backbuffer blur: used to blur the backbuffer in the pause menu -->
+				<BaseBlurTarget
+					id="PauseMenuMainMenuBlur"
+					class="mainmenu__pause-blur"
+					blurrects="PauseMenuMainMenuContent"
+					hittest="false"
+				>
+					<!-- Backbuffer background -->
+					<BackbufferImagePanel hittest="false" class="mainmenu__background" />
+				</BaseBlurTarget>
+
+				<Panel id="PauseMenuMainMenuContent" hittest="false" class="mainmenu__pause-content-blur" />
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="full" hittest="false" hittestchildren="false" onload="PauseMenu.onLoad()">
+		<Panel id="ContinueBox" class="mainmenu__display-box">
+			<Panel>
+				<Image
+					id="ContinueSaveThumb"
+					class="mainmenu__display-box__img"
+					src="file://{images}/menu/fallback/programmer_art_logo.png"
+					textureheight="1920"
+					texturewidth="1080"
+					scaling="stretch-to-cover-preserve-aspect"
+				/>
+			</Panel>
+			<Panel class="mainmenu__display-box__details">
+				<Panel class="vertical-align-center flow-down ml-3">
+					<Label id="ContinueSaveTagline" class="mainmenu__display-box__tagline" text="[PH] Tagline" />
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

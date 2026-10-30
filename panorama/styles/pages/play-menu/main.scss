@@ -1,0 +1,15 @@
+@use '../../config' as *;
+@use '../../abstract/function';
+@use '../../abstract/mixin';
+
+.play-menu {
+	&__main {
+		width: 100%;
+		height: 100%;
+		flow-children: down;
+	}
+
+	&__card {
+		width: 477px;
+	}
+}

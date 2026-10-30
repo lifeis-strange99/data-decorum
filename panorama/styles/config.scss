@@ -1,0 +1,677 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'abstract/function' as *;
+
+//===========================
+// BRANDING COLORS
+//===========================
+
+$primary-color: #d49a31 !default;
+$primary-color-light: #ffb000 !default;
+$base-color: #222222 !default;
+$bright-color: #f5ebe1 !default;
+
+// Primary colors
+$primary-50: #fff8e6 !default;
+$primary-100: #ffecbf !default;
+$primary-200: #ffdc85 !default;
+$primary-300: #ffc84d !default;
+$primary-400: #ffb000 !default;
+$primary-500: #d49a31 !default;
+$primary-600: #b07a22 !default;
+$primary-700: #8c5810 !default;
+$primary-800: #5e3a14 !default;
+$primary-900: #3d2314 !default;
+$primary-950: #2c1a0f !default;
+$colors-p2ce-primary: (
+	'primary-50': $primary-50,
+	'primary-100': $primary-100,
+	'primary-200': $primary-200,
+	'primary-300': $primary-300,
+	'primary-400': $primary-400,
+	'primary-500': $primary-500,
+	'primary-600': $primary-600,
+	'primary-700': $primary-700,
+	'primary-800': $primary-800,
+	'primary-900': $primary-900,
+	'primary-950': $primary-950
+) !default;
+
+// Base colors
+$base-50: #fbf6ef !default;
+$base-100: #f5ebe1 !default;
+$base-200: #e8e1d1 !default;
+$base-300: #c29b38 !default;
+$base-400: #9a7a30 !default;
+$base-500: #5c614e !default;
+$base-600: #4a4d3e !default;
+$base-700: #5a3820 !default;
+$base-800: #3d2314 !default;
+$base-900: #2c1a0f !default;
+$base-950: #1a0d07 !default;
+$colors-p2ce-base: (
+	'base-50': $base-50,
+	'base-100': $base-100,
+	'base-200': $base-200,
+	'base-300': $base-300,
+	'base-400': $base-400,
+	'base-500': $base-500,
+	'base-600': $base-600,
+	'base-700': $base-700,
+	'base-800': $base-800,
+	'base-900': $base-900,
+	'base-950': $base-950
+) !default;
+
+$base-gradient: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from($base-900), to($base-950)) !default;
+$base-gradient-subtle: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from(#231409), to($base-950)) !default;
+$base-gradient-bright: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from($base-400), to($base-800)) !default;
+
+//===========================
+// COLORS
+//===========================
+
+$hl2-bg: rgba(0, 0, 0, 0.4) !default;
+$hl2-full-yellow: rgb(255, 220, 0) !default;
+$hl2-yellow: rgba(255, 220, 0, 0.4) !default;
+$hl2-bright-yellow: rgba(255, 220, 0, 0.9) !default;
+$hl2-red: rgba(220, 0, 0, 0.9) !default;
+
+$blue: #1896d3 !default;
+$mid-blue: #57c8ff !default;
+$light-blue: #71f0ff !default;
+$purple: #be71ff !default;
+$pink: #ffb6dc !default;
+$red: #ff6a6a !default;
+$orange: #ff7b02 !default;
+$mid-orange: #ffae64 !default;
+$yellow: #ffae64 !default;
+$green: #7aee7a !default;
+
+$colors-primary: (
+	'blue': $blue,
+	'mid-blue': $mid-blue,
+	'light-blue': $light-blue,
+	'purple': $purple,
+	'pink': $pink,
+	'red': $red,
+	'orange': $orange,
+	'yellow': $yellow,
+	'green': $green
+) !default;
+
+$disabled: #7e7e7e !default;
+$error: #f32424 !default;
+$warning: #ff7300 !default;
+$positive: #63fd68 !default;
+$steam-online: #91c257 !default;
+
+$colors-state: (
+	'disabled': $disabled,
+	'error': $error,
+	'warning': $warning,
+	'positive': $positive,
+	'steam-online': $steam-online
+) !default;
+
+$transparent: #00000000;
+$black: #000000 !default;
+$white: #ffffff !default;
+$gray-100: #0f0f0f !default;
+$gray-200: #141414 !default;
+$gray-300: #2a2a2a !default;
+$gray-400: #363636 !default;
+$gray-500: #414141 !default;
+$gray-600: #4f4f4f !default;
+$gray-700: #5f5f5f !default;
+$gray-800: #828282 !default;
+$gray-900: #c8c8c8 !default;
+
+$color-grays: (
+	'transparent': $transparent,
+	'white': $white,
+	'gray-100': $gray-100,
+	'gray-200': $gray-200,
+	'gray-300': $gray-300,
+	'gray-400': $gray-400,
+	'gray-500': $gray-500,
+	'gray-600': $gray-600,
+	'gray-700': $gray-700,
+	'gray-800': $gray-800,
+	'gray-900': $gray-900,
+	'black': $black
+) !default;
+
+$light-100: rgba(255, 255, 255, 0.05) !default;
+$light-200: rgba(255, 255, 255, 0.075) !default;
+$light-300: rgba(255, 255, 255, 0.1) !default;
+$light-400: rgba(255, 255, 255, 0.125) !default;
+$light-500: rgba(255, 255, 255, 0.15) !default;
+$light-600: rgba(255, 255, 255, 0.2) !default;
+$light-700: rgba(255, 255, 255, 0.25) !default;
+$light-800: rgba(255, 255, 255, 0.3) !default;
+$light-900: rgba(255, 255, 255, 0.4) !default;
+
+$color-light-bgs: (
+	'light-100': $light-100,
+	'light-200': $light-200,
+	'light-300': $light-300,
+	'light-400': $light-400,
+	'light-500': $light-500,
+	'light-600': $light-600,
+	'light-700': $light-700,
+	'light-800': $light-800,
+	'light-900': $light-900
+) !default;
+
+$dark-100: rgba(0, 0, 0, 0.6) !default;
+$dark-200: rgba(0, 0, 0, 0.7) !default;
+$dark-300: rgba(0, 0, 0, 0.8) !default;
+$dark-400: rgba(0, 0, 0, 0.85) !default;
+$dark-500: rgba(0, 0, 0, 0.9) !default;
+$dark-600: rgba(0, 0, 0, 0.925) !default;
+$dark-700: rgba(0, 0, 0, 0.95) !default;
+$dark-800: rgba(0, 0, 0, 0.975) !default;
+$dark-900: rgba(0, 0, 0, 0.99) !default;
+
+$color-dark-bgs: (
+	'dark-100': $dark-100,
+	'dark-200': $dark-200,
+	'dark-300': $dark-300,
+	'dark-400': $dark-400,
+	'dark-500': $dark-500,
+	'dark-600': $dark-600,
+	'dark-700': $dark-700,
+	'dark-800': $dark-800,
+	'dark-900': $dark-900
+) !default;
+
+$units: $yellow;
+
+// ================
+// GRADIENTS
+// ================
+
+$gradients-primary: (
+	'blue': (
+		$mid-blue,
+		$blue
+	),
+	'light-blue': (
+		$light-blue,
+		$blue
+	),
+	'purple': (
+		#bc57ff,
+		#a210c7
+	),
+	'pink': (
+		#fa7ca2,
+		#ab4657
+	),
+	'red': (
+		#ff5757,
+		#d31818
+	),
+	'orange': (
+		$mid-orange,
+		$orange
+	),
+	'yellow': (
+		#f8de4a,
+		#fca504
+	),
+	'green': (
+		#7aee7a,
+		#159856
+	)
+) !default;
+
+// Saturation-Luminance-Alpha transform, scaling the underlying gradient
+$gradient-hover-transform: 10%, 25%, 10% !default;
+$gradient-disabled-transform:
+	-70%,
+	-20%,
+	20% !default;
+$gradient-selected-hover-transform:
+	-10%,
+	-10%,
+	0% !default;
+
+// ================
+// FONTS
+// ================#
+
+$font-shadows: (
+	'black': none,
+	'bold': none,
+	'medium': none,
+	'regular': none,
+	'light': none,
+	'thin': none,
+	'outline': none,
+	'none': none
+) !default;
+
+$font-default-color: $bright-color !default;
+$font-disabled-color: color.scale($font-default-color, $lightness: -20%) !default;
+$font-default-size: 18px !default;
+$font-console-default-size: 14px !default;
+$font-autocomplete-default-size: 16px !default;
+
+$font-primary: 'Lexend' !default;
+$font-secondary: 'Lexend' !default;
+$font-secondary-light: 'Lexend' !default;
+$font-monospace: 'Cascadia Mono' !default;
+
+$font-halflife2-hud: 'GorDIN' !default;
+$font-halflife2: 'HALFLIFE2' !default;
+$font-hl2ep2: 'HL2EP2', 'Cascadia Mono' !default;
+
+$font-header: $font-secondary !default;
+$font-header-light: $font-secondary-light !default;
+$font-header-shadow: map.get($font-shadows, 'regular');
+$font-header-spacing: 1px !default;
+$font-header-sizes: (
+	'h1': 64px,
+	'h2': 50px,
+	'h3': 42px,
+	'h4': 34px,
+	'h5': 24px,
+	'h6': 20px
+) !default;
+$font-header-transform: uppercase;
+
+$html-font-header-sizes: (
+	'h1': 34px,
+	'h2': 28px,
+	'h3': 24px
+) !default;
+
+$font: $font-primary !default;
+$font-shadow: none !default; // This is a text-shadow-fast
+$font-spacing: 0px !default;
+$font-sizes: (
+	'xxxl': 48px,
+	'xxl': 36px,
+	'xl': 28px,
+	'l': 24px,
+	'm': $font-default-size,
+	'sm': 14px,
+	'xs': 12px
+) !default;
+
+$font-weights: ('thin', 'light', 'normal', 'medium', 'bold', 'black') !default;
+
+// ================
+// EASINGS (see https://easings.net/ for previews)
+// ================
+
+$easeInSine: cubic-bezier(0.47, 0, 0.745, 0.715);
+$easeOutSine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$easeInOutSine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+$easeInQuad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$easeOutQuad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$easeInOutQuad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$easeInQuart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$easeOutQuart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$easeInOutQuart: cubic-bezier(0.77, 0, 0.175, 1);
+$easeInQuint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$easeOutQuint: cubic-bezier(0.23, 1, 0.32, 1);
+$easeInOutQuint: cubic-bezier(0.86, 0, 0.07, 1);
+$easeInExpo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$easeOutExpo: cubic-bezier(0.19, 1, 0.22, 1);
+$easeInOutExpo: cubic-bezier(1, 0, 0, 1);
+$easeInCirc: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$easeOutCirc: cubic-bezier(0.075, 0.82, 0.165, 1);
+$easeInOutCirc: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+$easeInBack: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// ================
+// LAYOUT / UTILITY
+// ================
+
+$separator-height: 1px !default;
+$separator-vertical-margin: 5px !default;
+$seperator-radius: 0px !default;
+$separator-background: $base-700 !default;
+$separator-box-shadow: none !default;
+
+$spacers: (5px, 10px, 15px, 25px, 35px) !default;
+
+// ================
+// BUTTON
+// ================
+
+$button-background-base-color: $base-950 !default;
+$button-background-base: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from($base-900), to($base-950)) !default;
+$button-background: $button-background-base !default;
+$button-background-hover-color: $primary-700 !default;
+$button-background-hover: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from($primary-500), to($primary-700)) !default;
+$button-background-selected: $primary-color !default; // Used by Radiobuttons + Togglebuttons
+$button-background-disabled: rgba($base-950, 0.5) !default;
+
+$button-text-color: $bright-color !default;
+$button-text-disabled: $font-disabled-color !default;
+$button-text-hover: $bright-color !default;
+$button-text-selected: #1a0d07 !default;
+
+$button-shadow: none !default;
+$button-radius: 0px !default;
+
+$button-border: 1px solid $base-700 !default;
+$button-border-hover: 1px solid $primary-color !default;
+$button-border-disabled: 1px solid rgba($base-700, 0.5) !default;
+
+$button-height: 40px !default;
+$button-icon-padding: 5px !default;
+$button-icon-side-padding: 5px !default;
+$button-text-side-margin: 15px !default;
+$button-icon-with-text-side-margin: 10px !default;
+$button-icon-text-gap: 0px !default;
+
+$button-use-header-font: true !default;
+$button-font-size: 18px !default;
+$button-light-header-font: false !default;
+$button-text-shadow: none !default;
+$button-icon-shadow: none !default;
+
+// ================
+// CHECKBOX
+// ================
+
+$checkbox-background: $button-background !default;
+$checkbox-background-disabled: $button-background-disabled !default;
+$checkbox-background-disabled-selected: $button-background-selected !default;
+$checkbox-background-hover: $button-background-hover !default;
+$checkbox-background-selected: $button-background-selected !default;
+$checkbox-background-selected-hover: $button-background-hover !default;
+
+$checkbox-use-header-font: false !default;
+
+$checkbox-shadow: none !default;
+
+$checkbox-border: 1px solid $base-700 !default;
+$checkbox-border-hover: $button-border-hover !default;
+$checkbox-border-selected: $button-border-hover !default;
+$checkbox-radius: 0px !default;
+$checkbox-width: 24px !default;
+
+$checkbox-gap: 8px !default;
+
+// ================
+// RADIOBUTTON
+// ================
+
+$radiobutton-background: $button-background-base !default;
+$radiobutton-background-disabled: $checkbox-background-disabled !default;
+$radiobutton-background-disabled-selected: rgba($primary-color, 0.5) !default;
+$radiobutton-background-hover: $button-background-hover !default;
+$radiobutton-background-selected: $primary-color !default;
+
+$radiobox-width: 25px !default;
+$radiobox-radius: 50% !default;
+$radiobox-shadow: none !default;
+
+$radiobutton-use-header-font: false !default;
+$radiobutton-gap: 7px !default;
+$radiobutton-text-color: $font-default-color !default;
+$radiobutton-text-disabled: $font-disabled-color !default;
+
+// ================
+// DROPDOWN
+// ================
+
+$dropdown-button-background: $button-background !default;
+
+$dropdown-button-background-disabled: $button-background-disabled !default;
+$dropdown-button-background-hover: $button-background-hover !default;
+$dropdown-button-background-menuvisible: $button-background-selected !default;
+
+$dropdown-button-icon-background: $primary-700 !default;
+$dropdown-button-icon-background-hover: $primary-600 !default;
+$dropdown-button-icon-background-menuvisible: $primary-500 !default;
+$dropdown-button-icon-border: 0px solid rgba(0, 0, 0, 0) !default;
+$dropdown-button-icon-shadow: none !default;
+$dropdown-button-icon-icon-shadow: none !default;
+
+$dropdown-button-shadow: $button-shadow !default;
+$dropdown-button-radius: 0px !default;
+$dropdown-button-border: $button-border !default;
+$dropdown-button-border-disabled: $button-border-disabled !default;
+$dropdown-button-border-hover: $button-border-hover !default;
+
+$dropdown-button-use-header-font: true !default;
+$dropdown-button-font-size: 16px !default;
+$dropdown-button-height: 35px !default;
+$dropdown-button-text-color: $button-text-color !default;
+$dropdown-button-text-hover-color: $button-text-hover !default;
+$dropdown-button-menuvisible-text-color: $button-text-hover !default;
+$dropdown-button-text-color-disabled: $button-text-disabled !default;
+$dropdown-button-text-shadow: $button-text-shadow;
+
+$dropdown-button-padding: 5px 20px !default;
+$dropdown-button-icon-width: 24px !default;
+
+$dropdown-menu-background: $base-gradient !default;
+$dropdown-menu-padding-y: 0px !default;
+$dropdown-menu-shadow: none !default;
+$dropdown-menu-border: 1px solid $primary-color !default;
+$dropdown-menu-radius: 0px !default;
+
+$dropdown-item-use-header-font: true !default;
+$dropdown-item-font-size: 20px !default;
+$dropdown-item-padding: 8px 16px 8px 16px !default;
+$dropdown-item-background: rgba(0, 0, 0, 0) !default;
+$dropdown-item-background-hover: $primary-color !default;
+$dropdown-item-color: $base-950 !default;
+
+// ================
+// CONTEXTMENU
+// ================
+
+$contextmenu-width: 250px;
+$contextmenu-padding-y: $dropdown-menu-padding-y !default;
+$contextmenu-background: $dropdown-menu-background !default;
+$contextmenu-border: 1px solid $primary-color !default;
+$contextmenu-radius: $dropdown-menu-radius !default;
+$contextmenu-shadow: $dropdown-menu-shadow !default;
+
+$contextmenu-item-use-header-font: $dropdown-item-use-header-font !default;
+$contextmenu-item-font-size: $dropdown-item-font-size !default;
+$contextmenu-item-padding: $dropdown-item-padding !default;
+$contextmenu-item-background: $dropdown-item-background !default;
+$contextmenu-item-background-hover: $dropdown-item-background-hover !default;
+
+$contextmenu-separator: 1px solid rgba($base-800, 0.5) !default;
+
+// ================
+// N-STATE BUTTON
+// ================
+
+$nstatebutton-0-background: $button-background !default;
+$nstatebutton-0-background-hover: $button-background-hover !default;
+$nstatebutton-0-background-disabled: $button-background-disabled !default;
+
+$nstatebutton-colors: ('blue', 'red') !default;
+
+// ================
+// TABS
+// ================
+
+$tab-background: gradient-vertical(rgba(148, 148, 148, 0.3), rgba(120, 120, 120, 0.3));
+$tab-background-hover: rgba(255, 255, 255, 0.05);
+$tab-background-selected: rgba(0, 0, 0, 0.5);
+$tab-background-disabled: rgba(0, 0, 0, 0);
+$tab-shadow: none;
+$tab-border-width: 1px;
+$tab-border-color: rgba(0, 0, 0, 0.3);
+$tab-lower-border-height: 2px;
+$tab-lower-border-color: rgba(0, 0, 0, 0.4);
+$tab-lower-gap-color: rgba(0, 0, 0, 0.075);
+$tab-lower-border-hover-color: rgba(255, 255, 255, 0.4);
+$tab-lower-border-selected-color: rgba(255, 255, 255, 0.6);
+$tab-padding: 2px 8px 0px 8px;
+$tab-font-size: 20px;
+$tab-text-shadow: none;
+$tab-use-header-font: true;
+$tab-light-header: false;
+$tab-text-padding: 4px 10px;
+
+// ================
+// TEXTENTRY
+// ================
+
+$textentry-autocomplete-item-color: $bright-color !default;
+$textentry-background: $button-background !default;
+$textentry-background-hover: $button-background-hover !default;
+$textentry-background-focus: $button-background-selected !default;
+
+$textentry-height: 35px !default;
+$textentry-width: 256px !default;
+$textentry-padding: 7px 0px 7px 15px !default;
+$textentry-border: $button-border !default;
+$textentry-border-hover: $button-border-hover !default;
+$textentry-radius: 0px !default;
+$textentry-shadow: none !default;
+$textentry-shadow-hover: none !default;
+
+$textentry-font-size: 16px !default;
+$textentry-placeholder-font-size: 16px !default;
+$textentry-text-color: $button-text-color !default;
+$textentry-hover-text-color: $button-text-hover !default;
+$textentry-focus-text-color: $button-text-hover !default;
+$textentry-text-disabled: $font-disabled-color !default;
+$textentry-placeholder-color: color.scale($textentry-text-color, $alpha: -40%) !default;
+$textentry-placeholder-hover-color: color.scale($textentry-text-color, $alpha: 30%) !default;
+
+// ================
+// SLIDER
+// ================
+
+$slider-padding-height: 0px !default;
+$slider-track-height: 5px !default;
+
+$slider-thumb-color: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from($primary-500), to($primary-700)) !default;
+$slider-thumb-color-hover: gradient(radial, 50% 50%, 0% 0%, 70% 70%, from($primary-700), to($primary-800)) !default;
+$slider-thumb-width: 15px !default;
+$slider-thumb-height: 20px !default;
+$slider-thumb-radius: 0px !default;
+$slider-thumb-shadow: none !default;
+
+$slider-track: $base-700 !default;
+$slider-track-shadow: none !default;
+$slider-track-progress-height: 10px !default;
+$slider-track-progress-horizontal: $primary-color !default;
+$slider-track-progress-vertical: $primary-color !default;
+$slider-track-progress-border: 2px solid $slider-thumb-color !default;
+
+$slider-default-color: $base-700 !default;
+$slider-default-width: 15px !default;
+$slider-default-height: 20px !default;
+$slider-default-radius: 0px !default;
+$slider-default-shadow: none !default;
+
+// ================
+// SCROLLBAR
+// ================
+
+$scrollbar-width: 6px !default;
+$scrollbar-radius: 0px !default;
+$scrollbar-color: $primary-500 !default;
+$scrollbar-hover-color: $primary-700 !default;
+$scrollbar-active-color: $primary-900 !default;
+$scrollbar-opacity: 1 !default;
+$scrollbar-hover-opacity: 0.9 !default;
+
+// ================
+// PROGRESSBAR
+// ================
+
+$progressbar-width: 100% !default;
+$progressbar-height: 25px !default;
+$progressbar-border: 1px solid $primary-color !default;
+$progressbar-background: $base-gradient !default;
+$progressbar-background-disabled: gradient(
+	linear,
+	0% 0%,
+	100% 0%,
+	from(color.scale($red, $saturation: -65%, $lightness: -45%)),
+	to(color.scale($red, $saturation: -55%, $lightness: -35%))
+);
+$progressbar-background-progress: gradient(linear, 0% 0%, 100% 0%, from($base-950), to($primary-color)) !default;
+
+$progressbar-shadow: none !default;
+
+// ================
+// TOOLTIPS
+// ================
+
+$tooltip-background: gradient(radial, 50% 50%, 0% 0%, 100% 100%, from($base-900), to($base-950)) !default;
+$tooltip-arrow-color: $base-700 !default;
+$tooltip-padding: 10px 15px !default;
+$tooltip-border: 1px solid $base-700 !default;
+$tooltip-radius: 0px !default;
+$tooltip-margin: 0px !default;
+$tooltip-text-color: $bright-color !default;
+
+$tooltip-title-use-header-font: true !default;
+$tooltip-title-font-size: 32px !default;
+$tooltip-text-use-header-font: false !default;
+$tooltip-text-font-size: 16px !default;
+$tooltip-image-size: 20px !default;
+
+// ================
+// POPUPS
+// ================
+
+$popup-min-width: 600px !default;
+$popup-max-width: 900px !default;
+$popup-wide: 900px !default;
+$popup-large-max-width: 1200px !default;
+$popup-background: $base-gradient-subtle !default;
+$popup-padding: 30px 30px !default;
+$popup-border: 1px solid $base-700 !default;
+$popup-radius: 0px !default;
+
+$popup-title-use-header-font: true !default;
+$popup-title-font-size: 40px !default;
+$popup-text-use-header-font: false !default;
+$popup-text-font-size: 18px !default;
+$popup-button-font-size: 20px !default;
+
+// ================
+// LINEGRAPH
+// ================
+
+$linegraph-axis-width: 24px;
+
+// ================
+// MAIN MENU
+// ================
+
+$rightnav-width: 50px;
+$menu-pane-border: 1px solid $base-700 !default;
+
+// ================
+// SETTINGS
+// ================
+
+$settings-height: 50px !default;
+$settings-padding: 0 30px 0 30px !default;
+$settings-gap: 0px !default;
+
+$colordisplay-height: $settings-height !default;
+$colordisplay-padding: $settings-padding !default;
+$colordisplay-title-margin: 10px !default;
+$colordisplay-color-height: 32px !default;
+$colordisplay-color-radius: 0px !default;
+$colordisplay-color-margin: 10px !default;
+$colordisplay-color-hover-shadow: 0 1px 2px 2px rga(0, 0, 0.35) !default;
+$colordisplay-hex-width: 140px !default;
+$colordisplay-hex-margin: 10px !default;

@@ -1,0 +1,101 @@
+"GameInfo"
+{
+	game 		"Portal 2: Community Edition - Mod Template"
+
+	// The icon used in Steam.
+	// Even though `icon` is set to "resource/icon", Steam will still use "resource/icon_big.tga"
+	GameLogo	1
+	icon		"resource/icon"
+	
+	// FGD file used by Hammer vbsp to automatically apply correct KVs
+	GameData	"p2ce.fgd"
+	
+	// Set this to 1 to enable Workshop addon integration
+	// This is disabled by default to prevent WS addons from being mounted in mods
+	WorkshopEnabled 0
+
+	// Mounts content from Portal 2 and P2CE.
+	// To add additional mounts, see cfg/mounts.kv
+	// 
+	// This block is only used if your mod depends on external content from other games
+	// The number for the specific game corresponds to the Steam application ID of that game
+	// Portal 2, for instance, is appid 620; Team Fortress 2 is appid 440
+	// 
+	// Uncomment the below block to enable external content mounting.
+
+	// mount
+	// {
+	// 	// Portal 2
+	// 	620
+	// 	{
+	// 		"required" "1"
+	// 
+	// 		// Priority is determined by the order in which folders are defined.
+	// 		// For example, assets in "portal2" will be overridden by assets in "update" and higher mods.
+	// 
+	// 		// PeTI/Puzzlemaker (DLC 2)
+	// 		"portal2_dlc2"
+	// 		{
+	// 			"vpk" "pak01"
+	// 		}
+	// 
+	// 		// Peer Review (DLC 1)
+	// 		"portal2_dlc1"
+	// 		{
+	// 			"vpk" "pak01"
+	// 		}
+	// 		
+	// 		// L4D2 Title Update
+	// 		"update"
+	// 		{
+	// 			"vpk" "pak01"
+	// 		}
+	// 		
+	// 		// Base Game (SP + Coop)
+	// 		"portal2"
+	// 		{
+	// 			"vpk" "pak01"
+	// 		}
+	// 	}
+	// }
+
+	FileSystem
+	{
+		SteamAppId				440000		// Required to identify as a P2CE mod. Replace this with your own AppID if you are publishing a mod on Steam.
+		
+		// If the user has a non-English language selected, for each "Game" path and mounted folder, another path with _<language>
+		// at the end is automatically added. For example, 'p2ce' on a French-localized machine would have
+		// 'p2ce_french' automatically mounted on top of the existing mod.
+
+		// Search paths are relative to the base directory, which is 2 folders up from the P2:CE launcher executable (bin/{win64|linux64}/p2ce).
+		// |gameinfo_path| points at the directory where gameinfo.txt is.
+		// This is used in mods so the user can install the mod to a different location/drive and still have it work.
+
+		SearchPaths
+		{
+			// Custom content will get mounted to this directory FIRST and loaded on top of this mod's content.
+			game 									"|gameinfo_path|custom/*"
+			
+			// Mod core content will be mounted using this parameter, and all configuration files get written to this directory.
+			game+mod+default_write_path				|gameinfo_path|.
+			
+			// Dependency content required to boot into this mod. "p2ce" must be added as game+mod,
+			// because steam.inf and some other important files are pulled from the MOD path.
+			// MOD may have multiple directories on it, hence why this works.
+			game+mod								p2ce
+			
+			// Hammer content - needed for it to work
+			game									hammer
+
+			// Portal 2 content - repackaged to reduce filesize
+			// This is a bedrock dependency for P2:CE, not having this present will
+			// cause asset dependency problems!!!
+			Game				portal2/portal2/portal2.vpk
+			Game				portal2/portal2
+
+			// This is the path used to load required P2:CE game libraries (client/server and coop matchmaking code)
+			gamebin									p2ce/bin
+		}
+	}
+}
+

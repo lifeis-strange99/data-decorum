@@ -1,0 +1,59 @@
+@use '../config' as *;
+@use '../abstract/mixin';
+@use 'sass:map';
+
+.text {
+	@include mixin.font-styles($use-header: false);
+}
+
+.text-h {
+	@include mixin.font-styles($use-header: true);
+}
+
+.text-h-light {
+	@include mixin.font-styles($use-header: true, $light-header: true);
+}
+
+@each $name, $size in $font-header-sizes {
+	.text-#{$name} {
+		@include mixin.font-styles($use-header: true);
+		font-size: $size;
+	}
+
+	.text-#{$name}-light {
+		@include mixin.font-styles($use-header: true, $light-header: true);
+		font-size: $size;
+	}
+}
+
+@each $name, $size in $font-sizes {
+	.text-#{$name} {
+		font-size: $size;
+	}
+}
+
+@each $weight in $font-weights {
+	.text-weight-#{$weight} {
+		font-weight: $weight;
+	}
+}
+
+@each $name, $strength in $font-shadows {
+	.text-shadow-#{$name} {
+		text-shadow: $strength;
+	}
+}
+
+.text-italic {
+	font-style: italic;
+}
+
+.text-monospace {
+	font-family: $font-monospace;
+}
+
+@each $name in (uppercase, lowercase, none) {
+	.text-transform-#{$name} {
+		text-transform: $name;
+	}
+}

@@ -1,0 +1,222 @@
+@use '../config' as *;
+@use '../abstract/function';
+@use '../abstract/mixin';
+@use 'sass:color';
+@use 'sass:list';
+
+.radiobutton {
+	.RadioBox {
+		visibility: collapse;
+	}
+
+	&:selected {
+		background-color: $button-background-selected;
+		border-color: $primary-color;
+	}
+
+	.InputKeyboard &:hover:selected:not(:disabled):not(:parentdisabled) {
+		background-color: $button-background-selected;
+		border-color: $primary-color;
+		sound: 'UIPanorama.P2CE.MenuSelect';
+
+		& Label {
+			color: $button-text-hover;
+		}
+
+		& Image {
+			wash-color: $button-text-hover;
+		}
+	}
+}
+
+.radiobutton-classic {
+	background-color: none;
+	vertical-align: middle;
+	flow-children: right;
+
+	.RadioBox {
+		width: $radiobox-width;
+		height: $radiobox-width;
+		margin-right: $radiobutton-gap;
+		border-radius: $radiobox-radius;
+		background-color: $radiobutton-background;
+		box-shadow: $radiobox-shadow;
+	}
+
+	&__text {
+		@include mixin.font-styles($use-header: $radiobutton-use-header-font);
+		vertical-align: middle;
+	}
+
+	&:hover .RadioBox {
+		background-color: $radiobutton-background-hover;
+		sound: 'UIPanorama.P2CE.MenuSelect';
+	}
+
+	&:disabled .RadioBox,
+	&:disabled:hover .RadioBox {
+		background-color: $radiobutton-background-disabled;
+	}
+
+	&:disabled &__text {
+		color: $radiobutton-text-disabled;
+	}
+
+	&:selected .RadioBox {
+		background-color: gradient(
+			radial,
+			50% 50%,
+			0% 0%,
+			50% 50%,
+			from($primary-500),
+			color-stop(0.6, $primary-700),
+			color-stop(0.65, $base-900),
+			to($base-950)
+		);
+		sound: 'UIPanorama.P2CE.MenuSelect';
+		//background-color: $radiobutton-background-selected;
+
+		&__text {
+			color: $button-text-selected;
+		}
+	}
+
+	&:disabled:selected .RadioBox {
+		background-color: gradient(
+			radial,
+			50% 50%,
+			0% 0%,
+			50% 50%,
+			from($primary-500),
+			color-stop(0.6, $primary-700),
+			color-stop(0.65, $base-900),
+			to($base-950)
+		);
+		opacity: 0.5;
+	}
+}
+
+.tabs {
+	$root: &;
+
+	flow-children: right;
+
+	background-color: $tab-background;
+	box-shadow: $tab-shadow;
+
+	$border: $tab-border-width solid $tab-border-color;
+	border: $border;
+	border-bottom: 0px none;
+
+	&__tab {
+		padding: $tab-padding;
+
+		border-bottom: $tab-lower-border-height solid $tab-lower-border-color;
+
+		&:hover {
+			background-color: $tab-background-hover;
+			border-bottom: $tab-lower-border-height solid $tab-lower-border-hover-color;
+		}
+
+		&:selected {
+			background-color: $tab-background-selected;
+			border-bottom: $tab-lower-border-height solid $tab-lower-border-selected-color;
+		}
+
+		&:disabled {
+			background-color: $tab-background-disabled;
+		}
+	}
+
+	&__gap {
+		width: $tab-border-width;
+		height: 100%;
+		background-color: $tab-border-color;
+		border-bottom: $tab-lower-border-height solid $tab-lower-gap-color;
+	}
+
+	&__text {
+		@include mixin.font-styles($use-header: $tab-use-header-font, $light-header: $tab-light-header);
+		font-size: $tab-font-size;
+		vertical-align: center;
+		horizontal-align: center;
+		margin: 0px;
+		padding: $tab-text-padding;
+		opacity: 0.9;
+
+		#{$root}__tab:hover &,
+		#{$root}__tab:selected & {
+			opacity: 1;
+		}
+
+		#{$root}__tab:disabled & {
+			opacity: 0.2;
+		}
+	}
+
+	.RadioBox {
+		visibility: collapse;
+	}
+}
+
+@each $name, $value in $gradients-primary {
+	.radiobutton--#{$name} {
+		background-color: gradient(
+			radial,
+			50% 50%,
+			0% 0%,
+			70% 70%,
+			from(list.nth($value, 1)),
+			to(color.scale(list.nth($value, 1), $lightness: -50%))
+		);
+		border-color: color.scale(list.nth($value, 1), $lightness: -80%);
+
+		@if color.channel(color.to-space(list.nth($value, 1), hsl), 'lightness') > 50% {
+			& Label {
+				color: $base-950;
+			}
+			& Image {
+				wash-color: $base-950;
+			}
+
+			.InputKeyboard &:hover:not(:disabled):not(:parentdisabled):not(:selected),
+			.InputController &:focus:not(:disabled):not(:parentdisabled) {
+				& Label {
+					color: $bright-color;
+				}
+				& Image {
+					wash-color: $bright-color;
+				}
+			}
+
+			.InputKeyboard &:selected,
+			.InputController &:selected {
+				& Label {
+					color: $bright-color;
+				}
+				& Image {
+					wash-color: $bright-color;
+				}
+			}
+		}
+
+		.InputKeyboard &:hover:not(:disabled):not(:parentdisabled):not(:selected),
+		.InputController &:focus:not(:disabled):not(:parentdisabled) {
+			border-color: list.nth($value, 1);
+			background-color: gradient(
+				radial,
+				50% 50%,
+				0% 0%,
+				70% 70%,
+				from(color.scale(list.nth($value, 1), $lightness: -20%)),
+				to(color.scale(list.nth($value, 1), $lightness: -80%))
+			);
+		}
+
+		.InputKeyboard &:hover:not(:disabled):not(:parentdisabled):selected,
+		&:selected {
+			background-color: color.scale(list.nth($value, 2));
+			border-color: color.scale(list.nth($value, 2));
+		}
+	}
+}

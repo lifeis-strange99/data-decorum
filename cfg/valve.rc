@@ -1,0 +1,16 @@
+// load the base configuration
+//exec default.cfg
+
+// Setup custom controller
+execifexists joystick.cfg
+
+// run a user script file if present
+execifexists autoexec.cfg
+
+//
+// stuff command line statements
+//
+stuffcmds
+
+// display the startup level
+startupmenu

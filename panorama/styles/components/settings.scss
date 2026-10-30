@@ -1,0 +1,268 @@
+@use '../config' as *;
+@use '../abstract/mixin';
+@use '../abstract/function';
+@use '../controls/button';
+@use '../controls/radio-button';
+
+.settings-enum,
+.settings-enum-dropdown,
+.settings-slider,
+.colordisplay {
+	width: 100%;
+	height: $settings-height;
+}
+
+.settings-keybinder {
+	width: fill-parent-flow(1);
+	height: 60px;
+}
+
+.settings-enum,
+.settings-enum-dropdown,
+.settings-slider,
+.settings-keybinder,
+.colordisplay {
+	flow-children: right;
+	align: center center;
+
+	padding: $settings-padding;
+
+	&:hover {
+		background-color: gradient(
+			radial,
+			50% 50%,
+			0% 0%,
+			70% 70%,
+			from(rgba($primary-500, 0.1)),
+			to(rgba($primary-700, 0.1))
+		);
+	}
+
+	&:disabled {
+		background-color: $base-800;
+	}
+
+	&__title-container {
+		width: fill-parent-flow(0.35);
+		vertical-align: center;
+	}
+
+	&__input-container {
+		flow-children: right;
+		width: fill-parent-flow(0.65);
+		vertical-align: center;
+	}
+
+	&__title-container:parentdisabled,
+	&__input-container:parentdisabled {
+		opacity: 0.5;
+		wash-color: rgba(127, 127, 127, 1);
+	}
+
+	&__title {
+		vertical-align: center;
+		@include mixin.font-styles($use-header: false);
+		font-size: 18px;
+		overflow: squish;
+		text-overflow: shrink;
+	}
+}
+
+.settings-enum {
+	&__values {
+		flow-children: right;
+		horizontal-align: right;
+		width: fit-children;
+		height: 35px;
+		vertical-align: center;
+
+		& > RadioButton {
+			@extend .button;
+			@extend .radiobutton;
+
+			width: fit-children;
+			min-width: 140px;
+			height: 100%;
+			margin-left: 5px;
+
+			&:hover:not(:disabled):not(:selected) {
+				& > Label {
+					color: $button-text-hover;
+				}
+			}
+
+			&:selected {
+				&:disabled {
+				}
+
+				&:not(:disabled) {
+					& > Label {
+						color: $button-text-hover;
+					}
+					border: $button-border-hover;
+				}
+			}
+		}
+
+		& > RadioButton > Label {
+			@extend .button__text;
+		}
+	}
+}
+
+.settings-enum-dropdown {
+	&__dropdown {
+		horizontal-align: right;
+	}
+}
+
+.settings-slider {
+	&__slider {
+		width: fill-parent-flow(1);
+		vertical-align: center;
+		margin: 0 10px;
+	}
+
+	&__textentry {
+		width: 140px;
+
+		&:hover {
+			sound: 'UIPanorama.P2CE.MenuSelect';
+		}
+	}
+
+	&__outofbounds {
+		visibility: collapse;
+
+		.OutOfBounds & {
+			visibility: visible;
+			wash-color: $orange;
+			width: 24px;
+			height: 24px;
+			vertical-align: middle;
+			margin-right: 8px;
+		}
+	}
+}
+
+.settings-keybinder {
+	$root: &;
+
+	&__container {
+		min-width: 75px;
+		height: $button-height;
+		padding: 5px 10px;
+		align: center center;
+
+		horizontal-align: right;
+		background-color: $button-background;
+		border: $button-border;
+
+		&:hover {
+			sound: 'UIPanorama.P2CE.MenuSelect';
+			background-color: $button-background-hover;
+			border: $button-border-hover;
+
+			#{$root}__key {
+				color: $button-text-hover;
+			}
+		}
+
+		#{$root}:selected & {
+			animation-name: PulseBackgroundOrange;
+			animation-duration: 1.5s;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+			sound: 'UIPanorama.P2CE.MenuFocus';
+		}
+	}
+
+	&__key-container {
+		height: 100%;
+		align: center center;
+
+		&.ActiveBindButton {
+			width: 100%;
+
+			#{$root}:selected & {
+				visibility: collapse;
+			}
+		}
+	}
+
+	&__key {
+		@include mixin.font-styles($use-header: true);
+		color: $button-text-color;
+		font-size: 25px;
+		margin: 0 6px;
+		align: center center;
+		text-align: center;
+
+		transform: translateY(-3px);
+	}
+
+	&__clear {
+		width: 100%;
+		height: 100%;
+		align: center center;
+		margin: 2px 4px;
+		opacity: 0.8;
+
+		background-image: url('file://{images}/close.svg');
+		background-size: 24px;
+		background-repeat: no-repeat;
+		background-position: center;
+		visibility: collapse;
+
+		transition: wash-color 0.1s ease-in-out 0s;
+
+		#{$root}:selected & {
+			visibility: visible;
+		}
+
+		&:hover {
+			wash-color: rgb(175, 175, 175);
+		}
+	}
+}
+
+ConVarEnabler > .settings-enum,
+ConVarEnabler > .settings-enum-dropdown,
+ConVarEnabler > .settings-slider,
+ConVarEnabler > .settings-keybinder,
+ConVarEnabler > .colordisplay {
+	height: $settings-height;
+	padding: $settings-padding;
+	transition: height 0.1s ease-out 0s;
+
+	&:parentdisabled {
+		height: 0px;
+	}
+}
+
+// Toggle - I don't know where this is from or how it's supposed
+// to work so not going to style it
+
+// SettingsToggle {
+// 	height: 48px;
+// 	flow-children: right;
+// 	padding: 0 4px 0 12px;
+// 	width: 100%;
+// 	vertical-align: middle;
+// }
+
+// SettingsToggle #TitleContainer {
+// 	vertical-align: middle;
+// 	width: 35%;
+// 	padding-right: 50px;
+// }
+
+// SettingsToggle #Title {
+// 	vertical-align: middle;
+// 	horizontal-align: left;
+// }
+
+// SettingsToggle #Toggle {
+// 	vertical-align: middle;
+// 	horizontal-align: right;
+// }

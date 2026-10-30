@@ -1,0 +1,12 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/main.scss" />
+	</styles>
+	<scripts>
+		<include src="file://{scripts}/common/dev.ts" />
+		<include src="file://{scripts}/hud/weapon-switcher.ts" />
+	</scripts>
+
+	<Panel class="weapons" onload="WeaponSwitcher.onLoad()" hittest="false" hittestchildren="false">
+	</Panel>
+</root>

@@ -1,0 +1,46 @@
+@use '../config' as *;
+
+.numberentry {
+	flow-children: right;
+	height: $textentry-height;
+	background-color: $textentry-background;
+	font-size: $textentry-font-size;
+	border: $button-border;
+
+	$this: &;
+
+	&__textentry {
+		min-width: 40px;
+		vertical-align: middle;
+		padding: 6px 8px;
+		height: 100%;
+		width: fill-parent-flow(1);
+		horizontal-align: center;
+		text-align: center;
+		border: 0px none;
+		border-radius: 0px;
+		background-color: rgba(255, 255, 255, 0.025);
+
+		&:hover {
+			border: 0px none;
+		}
+	}
+
+	&__button {
+		height: 100%;
+		width: height-percentage(100%);
+		background-color: $button-background-base;
+
+		&:hover {
+			background-color: $button-background-hover;
+
+			#{$this}__icon {
+				wash-color: $button-text-hover;
+			}
+		}
+	}
+
+	&__icon {
+		padding: 9px;
+	}
+}

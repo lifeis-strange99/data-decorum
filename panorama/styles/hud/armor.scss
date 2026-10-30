@@ -1,0 +1,19 @@
+@use '../config' as *;
+
+.armor {
+	margin: 15px;
+	margin-left: 50px;
+	flow-children: right;
+	height: 80px;
+	width: 180px;
+	align: center top;
+	background-color: $hl2-bg;
+	border-radius: 10px;
+
+	& > Label {
+		color: $hl2-yellow;
+		font-size: 56px;
+		horizontal-align: center;
+		vertical-align: center;
+	}
+}

@@ -1,0 +1,149 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/main.scss" />
+	</styles>
+	<scripts>
+		<include src="file://{scripts}/common/dev.ts" />
+		<include src="file://{scripts}/pages/main-menu/menu-manager.ts" />
+		<include src="file://{scripts}/pages/main-menu/menu-anim.ts" />
+		<include type="module" src="file://{scripts}/pages/main-menu/main-menu-sounds.ts" />
+	</scripts>
+
+	<MainMenu
+		class="InitialDisplay MainMenuRootPanel"
+		onload="MenuManager.onLoaded()"
+		onfocus="MenuManager.onMenuFocused()"
+	>
+		<!-- Vanity is not used but the engine needs this to exist -->
+		<Panel id="MainMenuVanityParent" />
+
+		<Panel id="MainMenuInput" class="mainmenu">
+			<!-- Movie background -->
+			<Movie id="MainMenuMovie" class="mainmenu__movie" src="" sound="" controls="none" repeat="true" hittest="false" />
+			<!-- Static image background -->
+			<Image
+				id="MainMenuBackground"
+				class="mainmenu__background"
+				scaling="stretch-to-cover-preserve-aspect"
+				hittest="false"
+			/>
+
+			<Panel id="MenuModeBackgroundLayer" class="full" hittest="false" />
+
+			<!-- Backbuffer blur: used to blur the backbuffer when switching campaigns -->
+			<BaseBlurTarget id="PageBlur" class="mainmenu__page-blur" blurrects="PageBlurContent" hittest="false">
+				<!-- Backbuffer background -->
+				<BackbufferImagePanel class="mainmenu__background" hittest="false" />
+			</BaseBlurTarget>
+			<Panel id="PageBlurContent" class="mainmenu__pause-content-blur" hittest="false" />
+
+			<VersionInfo class="mainmenu__version" />
+
+			<Panel id="MenuMainContent" class="mainmenu__menu">
+				<Panel id="PageBg" class="mainmenu__page-bg" hittest="false" />
+				<Panel id="GradientBar" class="mainmenu__gradient-bar" hittest="false" />
+				<Image
+					id="GridTexture1"
+					class="mainmenu__grid1"
+					src="file://{images}/menu/menu_grid1.svg"
+					scaling="stretch-to-fit-preserve-aspect"
+					hittest="false"
+				/>
+				<Image
+					id="GridTexture2"
+					class="mainmenu__grid2"
+					src="file://{images}/menu/menu_grid2.svg"
+					scaling="stretch-to-fit-preserve-aspect"
+					hittest="false"
+				/>
+				<Panel id="MenuRootControls" class="mainmenu__nav">
+					<Panel class="mainmenu__logo-space">
+						<Image
+							id="GameFullLogo"
+							class="mainmenu__logo"
+							src="file://{images}/logo.svg"
+							scaling="stretch-to-fit-preserve-aspect"
+							hittest="false"
+						/>
+					</Panel>
+					<Panel id="MenuNav" class="mainmenu__nav__inner">
+						<!-- Dynamically populated -->
+					</Panel>
+				</Panel>
+			</Panel>
+
+			<Panel id="MenuModeForegroundLayer" class="full" hittest="false" hittestchildren="true" />
+
+			<Panel id="PageWrap" class="mainmenu__normal-page-container" hittest="false" hittestchildren="false">
+				<Label
+					id="PageHeadline"
+					class="mainmenu__page-head mainmenu__page-controls mainmenu__page-controls__t-prop"
+					text="[PH] Page Headline"
+				/>
+				<Label
+					id="PageTagline"
+					class="mainmenu__page-tagline mainmenu__page-controls mainmenu__page-controls__t-prop"
+					text="[PH] Page Tagline"
+				/>
+				<Panel id="PageInsert" class="mainmenu__page-insert" tabindex="auto" selectionpos="auto" />
+				<Panel
+					id="PageActions"
+					class="mainmenu__page-actions mainmenu__page-controls mainmenu__page-controls__t-prop"
+					tabindex="auto"
+					selectionpos="auto"
+				>
+					<Button
+						class="button mainmenu__page-actions__button"
+						onactivate="MenuManager.navigateBack()"
+						tabindex="auto"
+						selectionpos="auto"
+					>
+						<Label class="button__text" text="#Action_Back" />
+					</Button>
+					<Panel class="flow-right vertical-align-center ControllerOnly">
+						<SteamInputAction
+							id="SelectSteamAction"
+							class="mr-1"
+							actionset="MenuControls"
+							action="menu_select"
+							separatortext="/"
+							controllernumber="1"
+							glyphsize="large"
+						/> 
+						<SteamInputActionLabel actionset="MenuControls" action="menu_select" class="steam-action-name font-weight-bold" />
+					</Panel>
+					<Panel class="flow-right vertical-align-center ml-2 ControllerOnly">
+						<SteamInputAction
+							class="mr-1"
+							id="BackSteamAction"
+							actionset="MenuControls"
+							action="menu_cancel"
+							separatortext="/"
+							controllernumber="1"
+							glyphsize="large"
+						/> 
+						<Label class="vertical-align-center" text="#Action_Back" />
+					</Panel>
+				</Panel>
+			</Panel>
+
+			<!-- Backbuffer blur: used to blur the backbuffer when switching campaigns -->
+			<BaseBlurTarget id="SwitcherBlur" class="mainmenu__switcher-blur" blurrects="SwitcherBlurContent" hittest="false">
+				<!-- Backbuffer background -->
+				<BackbufferImagePanel class="mainmenu__background" hittest="false" />
+			</BaseBlurTarget>
+			<Panel id="SwitcherBlurContent" class="mainmenu__pause-content-blur" hittest="false" />
+			<Panel id="LoadingIndicator" class="loading-indicator">
+				<Label text="#MainMenu_Loading" />
+			</Panel>
+		</Panel>
+
+		<!-- Make sure these are at the bottom to get the z-order right -->
+		<PopupManager id="PopupManager" onpopupsdismissed="" />
+		<ContextMenuManager id="ContextMenuManager" />
+		<TooltipManager id="TooltipManager" hittest="false" />
+
+		<!-- Doesn't actually include the notifications, but we use its position to figure out where to show them -->
+		<Panel id="SteamNotificationsPlaceholder" hittest="false" />
+	</MainMenu>
+</root>

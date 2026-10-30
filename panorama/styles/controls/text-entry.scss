@@ -1,0 +1,106 @@
+@use '../config' as *;
+@use '../abstract/mixin';
+@use 'sass:color';
+
+TextEntry {
+	@include mixin.font-styles($use-header: false);
+	font-size: $font-default-size;
+	text-overflow: clip;
+	white-space: nowrap;
+}
+
+.textentry {
+	height: $textentry-height;
+	width: $textentry-width;
+	padding: $textentry-padding;
+	background-color: $textentry-background;
+	border: $textentry-border;
+	border-radius: $textentry-radius;
+	box-shadow: $textentry-shadow;
+	font-size: $textentry-font-size;
+	color: $textentry-text-color;
+	vertical-align: middle;
+	font-weight: bold;
+
+	#PlaceholderText {
+		color: $textentry-placeholder-color;
+		font-size: $textentry-placeholder-font-size;
+		horizontal-align: left;
+		vertical-align: middle;
+
+		opacity: 1;
+
+		transition-property: opacity;
+		transition-duration: 0.1s;
+	}
+
+	.InputKeyboard &:hover:not(:disabled):not(:parentdisabled),
+	.InputController &:focus:not(:disabled):not(:parentdisabled) {
+		background-color: $textentry-background-hover;
+		box-shadow: $textentry-shadow-hover;
+		border: $textentry-border-hover;
+		color: $textentry-hover-text-color;
+	}
+
+	.InputController &:focus {
+		border: $textentry-border-hover;
+	}
+
+	&:focus {
+		background-color: $textentry-background-focus;
+		box-shadow: $textentry-shadow-hover;
+		border: $textentry-border-hover;
+		color: $textentry-focus-text-color;
+	}
+
+	&:focus #PlaceholderText,
+	&.HasInput #PlaceholderText {
+		opacity: 0;
+	}
+
+	&:disabled {
+		color: $textentry-text-disabled;
+	}
+}
+
+TextEntryAutocomplete {
+	width: $contextmenu-width * 2;
+	flow-children: down;
+	overflow: squish scroll;
+	z-index: 0;
+	opacity: 1;
+	max-height: 220px;
+
+	box-shadow: $contextmenu-shadow;
+
+	& Label {
+		width: 100%;
+		padding: 4px 16px 4px 16px;
+		margin-right: 16px;
+
+		color: $textentry-autocomplete-item-color;
+		background-color: $contextmenu-background;
+
+		font-family: $font-monospace;
+		font-size: $font-autocomplete-default-size;
+		font-weight: normal;
+		z-index: 0;
+		border-top: $contextmenu-separator;
+		border-bottom: $contextmenu-separator;
+
+		&:hover {
+			background-color: $contextmenu-item-background-hover;
+			color: $dropdown-item-color;
+			border-color: $contextmenu-item-background-hover;
+		}
+
+		&:focus {
+			background-color: $base-700;
+		}
+
+		&:hover,
+		&:focus {
+			sound: 'UIPanorama.P2CE.MenuFocus';
+		}
+	}
+}

@@ -1,0 +1,73 @@
+@use '../config' as *;
+
+.search {
+	$root: &;
+	flow-children: right;
+	vertical-align: middle;
+	width: fill-parent-flow(0.55);
+	height: 45px;
+	margin-left: 15px;
+
+	&__icon {
+		width: 35px;
+		height: 35px;
+		vertical-align: center;
+		horizontal-align: center;
+		margin-right: 5px;
+		visibility: collapse;
+	}
+
+	&__textentry {
+		width: fill-parent-flow(1);
+		height: 45px;
+		color: $textentry-text-color;
+		vertical-align: middle;
+		font-size: 20px;
+
+		&:focus {
+			color: $textentry-focus-text-color;
+		}
+
+		&.HasInput #PlaceholderText {
+			opacity: 0;
+		}
+
+		#PlaceholderText {
+			font-size: 16px;
+			vertical-align: center;
+			transition-property: color;
+			transition-duration: 0.2s;
+		}
+
+		#{$root}:hover & #PlaceholderText {
+			color: rgba(255, 255, 255, 0.8);
+		}
+	}
+
+	&__clearbutton {
+		margin-left: 5px;
+		width: 45px;
+		height: 45px;
+
+		horizontal-align: right;
+		vertical-align: middle;
+
+		background-color: $button-background;
+		border: $menu-pane-border;
+
+		&:hover {
+			background-color: $button-background-hover;
+			border-color: $primary-color;
+		}
+
+		&--hidden {
+			opacity: 0;
+		}
+	}
+
+	&__clearicon {
+		margin: 10px;
+		vertical-align: middle;
+		horizontal-align: center;
+	}
+}

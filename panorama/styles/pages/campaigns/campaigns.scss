@@ -1,0 +1,365 @@
+@use '../../config' as *;
+@use '../../abstract/function';
+@use '../../abstract/mixin';
+
+.campaigns {
+	width: 100%;
+	height: 100%;
+	flow-children: right;
+
+	opacity: 1;
+
+	&__left {
+		vertical-align: center;
+		width: fill-parent-flow(1);
+		flow-children: down;
+		margin-right: 20px;
+	}
+
+	&__right {
+		horizontal-align: right;
+		width: fit-children;
+		height: 100%;
+	}
+
+	&__list {
+		height: fill-parent-flow(1);
+		width: 100%;
+		overflow: squish scroll;
+		flow-children: down;
+		padding-right: 15px;
+	}
+
+	&__action-bar {
+		width: 100%;
+		flow-children: right;
+
+		padding-right: 15px;
+		margin-bottom: 10px;
+
+		&__textentry {
+			text-overflow: clip;
+			white-space: nowrap;
+			color: $bright-color;
+			height: fit-children;
+			border: $menu-pane-border;
+			background-color: $button-background;
+
+			#PlaceholderText {
+				color: rgba($bright-color, 0.25);
+			}
+
+			.InputKeyboard &:hover:not(:disabled),
+			.InputController &:focus:not(:disabled) {
+				background-color: $button-background;
+				color: $bright-color;
+			}
+
+			&:parentdisabled {
+				opacity: 0.5;
+			}
+		}
+	}
+
+	&__entry {
+		width: 100%;
+		height: 256px;
+
+		background-color: $button-background;
+		border: $menu-pane-border;
+
+		$this: &;
+
+		&__spaced {
+			margin-bottom: 10px;
+		}
+
+		.InputKeyboard &:hover:not(:disabled),
+		.InputController &:focus:not(:disabled) {
+			border-color: $primary-color;
+			sound: 'UIPanorama.P2CE.MenuSelect';
+
+			#{$this}__inner {
+				background-color: $button-background-hover;
+			}
+
+			#{$this}__cover {
+				border-color: $primary-color;
+			}
+
+			#{$this}__details {
+				&__title,
+				&__author,
+				&__desc {
+					color: $bright-color;
+					text-shadow: none;
+				}
+			}
+		}
+
+		&:selected {
+			background-color: $primary-800;
+			sound: 'UIPanorama.P2CE.MenuAccept';
+		}
+
+		&__inner {
+			width: 100%;
+			height: 100%;
+			flow-children: right;
+			padding: 15px 20px;
+			background-color: gradient(linear, 100% 0%, 30% 0%, from(rgba(0, 0, 0, 0)), to($base-950));
+		}
+
+		&__bg-image {
+			horizontal-align: right;
+			width: 960px;
+			opacity: 0.15;
+		}
+
+		&__cover {
+			width: 460px;
+			height: 215px;
+			border: $menu-pane-border;
+		}
+
+		&__details {
+			flow-children: down;
+
+			margin-left: 22px;
+			vertical-align: middle;
+
+			&__logo {
+				height: 48px;
+				width: 48px;
+				vertical-align: bottom;
+				margin: 10px;
+
+				&__bg {
+					height: 48px;
+					width: 48px;
+					padding: 5px;
+					background-color: black;
+					border-radius: 5px;
+				}
+			}
+
+			&__status {
+				height: 48px;
+				width: 48px;
+				padding: 5px;
+				border: $menu-pane-border;
+				border-radius: 5px;
+				background-color: $base-950;
+				vertical-align: bottom;
+				horizontal-align: right;
+				margin: 10px;
+				visibility: collapse;
+			}
+
+			&__title {
+				@include mixin.font-styles($use-header: true);
+				letter-spacing: 2px;
+				font-size: 32px;
+				text-overflow: shrink;
+			}
+
+			&__author {
+				font-size: 14px;
+				letter-spacing: 1px;
+				padding-left: 3px;
+			}
+
+			&__desc {
+				margin-top: 5px;
+				font-size: 16px;
+				color: $base-200;
+				line-height: 22px;
+				max-height: 130px;
+				padding-left: 3px;
+			}
+		}
+
+		&__indicator {
+			horizontal-align: right;
+			padding: 6px 10px;
+			background-color: $button-background-hover;
+			border: 1px solid $primary-color;
+			margin: 5px;
+			&__text {
+				text-transform: uppercase;
+				font-weight: bold;
+				letter-spacing: 1px;
+				font-size: 14px;
+			}
+		}
+	}
+
+	&__boxart {
+		// this is a nasty workaround to borders disappearing while the panel is
+		// animated by specific properties, such as opacity. the animation here
+		// is handled by a container panel while the actual style is a child of this
+		// panel. yes, the layout is horribly nested but w/e this works for the time being.
+		&__container {
+			width: 474px;
+			horizontal-align: right;
+			vertical-align: center;
+
+			opacity: 0;
+			transform: translateX(20px);
+
+			&__anim {
+				transition:
+					opacity 0.2s ease-in-out 0s,
+					transform 0.3s ease-in-out 0s;
+			}
+
+			&__show {
+				opacity: 1;
+				transform: translateX(0px);
+			}
+		}
+
+		// ditto for __bg__switch (i hate myself)
+		&__border {
+			width: 100%;
+			border: $menu-pane-border;
+			background-color: $base-950;
+		}
+
+		&__bg {
+			width: 100%;
+			flow-children: down;
+
+			&__switch {
+				animation-name: FadeIn;
+				animation-duration: 0.2s;
+				animation-timing-function: ease-out;
+				animation-iteration-count: 1;
+			}
+		}
+
+		&__top {
+			width: 100%;
+			//border-bottom: $menu-pane-border;
+		}
+
+		&__image {
+			width: 472px;
+			height: 708px;
+			vertical-align: center;
+		}
+
+		&__detail {
+			&__text {
+				vertical-align: center;
+				letter-spacing: 1px;
+				font-weight: bold;
+				font-size: 20px;
+				transform: translateY(-3px);
+				max-height: 25px;
+			}
+		}
+
+		&__bottom {
+			margin: 15px;
+			width: 100%;
+			flow-children: down;
+		}
+
+		&__status {
+			height: 48px;
+			width: 48px;
+			padding: 5px;
+			border: $menu-pane-border;
+			border-radius: 5px;
+			background-color: $base-950;
+			margin: 10px;
+			visibility: collapse;
+		}
+
+		&__text {
+			letter-spacing: 1px;
+			font-size: 16px;
+			color: $base-200;
+			max-height: 22px;
+
+			&__small {
+				letter-spacing: 1px;
+				font-size: 14px;
+				color: $base-300;
+			}
+		}
+
+		&__spacer {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+// TODO: clean this up (and also this entire file if im honest)
+.selected-campaign {
+	&__sticky {
+		width: 100%;
+		max-width: 960px;
+	}
+
+	&__lister {
+		width: 100%;
+		max-width: 960px;
+		height: fill-parent-flow(1);
+		flow-children: down;
+		overflow: squish scroll;
+
+		&__body {
+			width: 100%;
+			height: 100%;
+			flow-children: down;
+			border: $menu-pane-border;
+			background-color: $base-950;
+		}
+
+		&__button {
+			width: fill-parent-flow(1);
+			flow-children: right;
+
+			padding: 18px 20px;
+			tooltip-position: right;
+			tooltip-body-position: 50% 50%;
+			border-top: $menu-pane-border;
+
+			$this: &;
+
+			&__lined {
+				border-bottom: 1px solid $base-900;
+			}
+
+			&__text {
+				@include mixin.font-styles($use-header: true);
+				color: $bright-color;
+				vertical-align: middle;
+				font-size: 20px;
+			}
+
+			&:disabled,
+			&:parentdisabled {
+				background-color: rgba($base-950, 0.5);
+				border-color: rgba($base-700, 0.1);
+
+				#{$this}__text {
+					color: rgba($button-text-disabled, 0.5);
+				}
+			}
+
+			&:hover:not(:disabled):not(:parentdisabled) {
+				background-color: $button-background-hover;
+				sound: 'UIPanorama.P2CE.MenuSelect';
+			}
+		}
+	}
+
+	&__action-bar {
+		width: 100%;
+		max-width: 960px;
+		flow-children: right;
+	}
+}

@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/example/cap1"
+    "$surfaceprop" "metal"
+}
