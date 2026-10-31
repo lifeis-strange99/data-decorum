@@ -97,10 +97,10 @@
 			chapters = [
 				{
 					// This is the (localizable) name of your chapter.
-					title = "Mechanics Sample"
+					title = "Act 1"
 					
 					// This is the title of your chapter as displayed by saverestore.
-					save_comment = "Mechanics Sample Save Comment"
+					save_comment = "Test"
 					
 					// Specify chapter metadata here.
 					meta = {
@@ -123,27 +123,27 @@
 					// This is the list of maps associated with the chapter. Map-specific overrides can influence how the UI appears to the player.
 					maps = [
 						{
-							name = "sdk_template_mechanics"
+							name = "dd_a1_chmb00_01"
 							meta = {
-								title = "Mechanics Sample"
+								title = "Chamber 00 - 01"
 							}
 						},
 						{
-							name = "sdk_barebones_campaign_1"
+							name = "dd_a1_chmb02"
 							meta = {
-								title = "Blank Map 1"
+								title = "Chamber 02"
 							}
 						},
 						{
 							name = "sdk_barebones_campaign_2"
 							meta = {
-								title = "Blank Map 2"
+								title = "Chamber 03 (Not working)"
 							}
 						},
 						{
 							name = "sdk_barebones_campaign_3"
 							meta = {
-								title = "Blank Map 3"
+								title = "Chamber 04 (not working)"
 							}
 						},
 					]
