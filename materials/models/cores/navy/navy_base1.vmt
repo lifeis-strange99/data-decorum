@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/cores/navy/navy_base1"
+	"$surfaceprop" "metal"
+}
