@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/cores/rust/rust_base2"
+	"$surfaceprop" "metal"
+}
