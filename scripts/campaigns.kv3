@@ -123,21 +123,21 @@
 					// This is the list of maps associated with the chapter. Map-specific overrides can influence how the UI appears to the player.
 					maps = [
 						{
-							name = "dd_a1_chmb00_01"
+							name = "dd_a1_00_01"
 							meta = {
 								title = "Chamber 00 - 01"
 							}
 						},
 						{
-							name = "dd_a1_chmb02"
+							name = "dd_a1_02"
 							meta = {
 								title = "Chamber 02"
 							}
 						},
 						{
-							name = "sdk_barebones_campaign_2"
+							name = "dd_a1_03"
 							meta = {
-								title = "Chamber 03 (Not working)"
+								title = "Chamber 03"
 							}
 						},
 						{
